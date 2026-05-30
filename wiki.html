@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Echoes of Atramentia: The Drawn Spell</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+    <script src="personajes.js" defer></script>
 </head>
 <body>
 
@@ -236,6 +238,27 @@
 
             </div>
         </section>
+
+    <section id="clases" class="paper-section">
+        <h2 class="section-title">Personajes</h2>
+        <p class="intro-text">Explora a los miembros registrados en nuestro archivo:</p>
+        
+        <div class="notebook-entries">
+            <!-- Esto busca todos los archivos en la colección y crea una tarjeta para cada uno -->
+            {% for personaje in site.personajes %}
+            <details class="cozy-details">
+                <summary>
+                    <!-- Aquí asumimos que en el front-matter del HTML del personaje definiste un campo 'avatar' -->
+                    <img src="{{ personaje.avatar }}" alt="{{ personaje.title }}" class="character-img">
+                    <span><strong>{{ personaje.title }}</strong></span>
+                </summary>
+                <div class="details-content">
+                    <a href="{{ personaje.url }}">Ver ficha completa del personaje</a>
+                </div>
+            </details>
+            {% endfor %}
+        </div>
+    </section>
 
     </main>
 
