@@ -9,195 +9,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Kalam:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Variables de la paleta Cozy */
         :root {
-            --bg-color: #f7f2e8;       
-            --ink-color: #4a3b32;      
-            --accent-color: #df7a5e;   
-            --card-bg: #fffbf5;        
+            --bg-color: #f7f2e8; 
+            --ink-color: #4a3b32; 
+            --accent-color: #df7a5e; 
+            --card-bg: #fffbf5; 
             --border-color: #c8bca6;
-            --star-color: #f2cc8f;
         }
 
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--ink-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-        }
-
+        body { font-family: 'Nunito', sans-serif; background-color: var(--bg-color); color: var(--ink-color); margin: 0; padding: 0; line-height: 1.7; }
         h1, h2, h3 { font-family: 'Kalam', cursive; color: var(--ink-color); }
         .title-font { font-family: 'Cinzel', serif; }
 
-        /* Navegación simple */
-        nav {
-            padding: 20px 5%;
-            background-color: var(--card-bg);
-            border-bottom: 2px dashed var(--border-color);
-        }
-        nav a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
+        header { background: linear-gradient(180deg, #ebdcb9 0%, var(--bg-color) 100%); padding: 60px 20px 30px 20px; text-align: center; border-bottom: 2px dashed var(--border-color); }
+        .header-banner h1 { font-size: 3rem; margin: 0; }
+        .subtitle { font-size: 1.5rem; color: var(--accent-color); margin: 5px 0; font-style: italic; }
+        .tagline { font-size: 1rem; opacity: 0.8; margin-top: 5px; }
 
-        /* Contenedor Principal */
-        .character-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-        }
+        nav { padding: 20px 5%; background-color: var(--card-bg); border-bottom: 2px dashed var(--border-color); }
+        nav a { color: var(--accent-color); text-decoration: none; font-weight: bold; font-size: 1.1rem; }
 
-        /* Columna Izquierda: Arte y Botón */
-        .art-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 24px rgba(74, 59, 50, 0.05);
-            position: sticky;
-            top: 40px;
-        }
+        .character-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 40px; align-items: flex-start; }
 
-        .art-wrapper {
-            width: 100%;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            overflow: hidden;
-            border-radius: 12px;
-            background-color: var(--bg-color);
-            border: 2px dashed var(--border-color);
-        }
+        .art-column { flex: 1; display: flex; flex-direction: column; align-items: center; background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border-color); position: sticky; top: 40px; }
+        .art-wrapper { width: 100%; height: 500px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; border-radius: 12px; background-color: var(--bg-color); border: 2px dashed var(--border-color); }
+        .character-img { max-width: 100%; max-height: 100%; object-fit: contain; transition: opacity 0.3s ease; }
+        .btn-toggle-art { background-color: var(--ink-color); color: var(--card-bg); border: none; padding: 12px 25px; font-family: 'Kalam', cursive; font-size: 1.2rem; border-radius: 30px; cursor: pointer; width: 100%; max-width: 250px; }
+        .btn-toggle-art:hover { background-color: var(--accent-color); }
 
-        .character-img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: opacity 0.3s ease;
-        }
+        .info-column { flex: 2; }
+        .char-header { border-bottom: 2px dashed var(--border-color); padding-bottom: 20px; margin-bottom: 30px; }
+        .char-name { font-size: 4rem; margin: 0; line-height: 1; color: var(--accent-color); }
+        .char-rarity { font-size: 1.5rem; color: #d4af37; letter-spacing: 5px; margin: 10px 0; }
+        
+        .header-details { display: flex; gap: 20px; align-items: center; margin-top: 15px; }
+        .info-tag { display: flex; align-items: center; background: #fff; padding: 8px 15px; border-radius: 25px; border: 1px solid var(--border-color); font-weight: bold; font-size: 0.9rem; }
+        .tag-icon { width: 20px; height: 20px; margin-right: 8px; }
+        .el-icon { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-color); padding: 4px; background: var(--bg-color); }
 
-        .btn-toggle-art {
-            background-color: var(--ink-color);
-            color: var(--card-bg);
-            border: none;
-            padding: 12px 25px;
-            font-family: 'Kalam', cursive;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.1s;
-            width: 100%;
-            max-width: 250px;
-        }
-
-        .btn-toggle-art:hover { background-color: var(--accent-color); transform: translateY(-2px); }
-        .btn-toggle-art:active { transform: translateY(0); }
-
-        /* Columna Derecha: Información */
-        .info-column {
-            flex: 2;
-        }
-
-        .char-header {
-            border-bottom: 2px dashed var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .char-name {
-            font-size: 4rem;
-            margin: 0 0 5px 0;
-            line-height: 1;
-            color: var(--accent-color);
-        }
-
-        .char-rarity {
-            font-size: 1.5rem;
-            color: #d4af37;
-            letter-spacing: 5px;
-            margin-bottom: 15px;
-        }
-
-        .badges {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            padding: 6px 16px;
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        .badge-type { border-color: var(--accent-color); color: var(--accent-color); }
-
-        /* Secciones de texto */
-        .info-section {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 25px;
-        }
-
-        .info-section h3 {
-            margin-top: 0;
-            font-size: 1.8rem;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 10px;
-        }
-
-        /* Lista de Habilidades */
-        .skills-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .skills-list li {
-            margin-bottom: 20px;
-            background: var(--bg-color);
-            padding: 15px 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .skills-list strong {
-            font-family: 'Kalam', cursive;
-            font-size: 1.2rem;
-            color: var(--ink-color);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Responsivo */
-        @media (max-width: 900px) {
-            .character-container { flex-direction: column; }
-            .art-column { position: static; width: 100%; }
-            .art-wrapper { height: 400px; }
-            .char-name { font-size: 3rem; text-align: center; }
-            .char-rarity, .badges { justify-content: center; }
-        }
+        .info-section { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 25px; }
+        .skills-list { list-style: none; padding: 0; }
+        .skills-list li { margin-bottom: 20px; background: var(--bg-color); padding: 15px 20px; border-radius: 12px; border-left: 4px solid var(--accent-color); }
     </style>
 </head>
 <body>
+
+    <header>
+        <div class="header-banner">
+            <h1>Echoes of Atramentia</h1>
+            <p class="subtitle">~ The Drawn Spell ~</p>
+            <p class="tagline">Donde los trazos de tu libreta se convierten en magia viva</p>
+        </div>
+    </header>
 
     <nav>
         <a href="../wiki.html">&larr; Volver al Menú</a>
@@ -207,84 +70,63 @@
         
         <div class="art-column">
             <div class="art-wrapper">
-                <img id="mitis-art" class="character-img" src="Assets/mitis_normal.png" alt="Mitis" onerror="this.src='https://via.placeholder.com/400x500?text=Arte+Normal'">
+                <img id="mitis-art" class="character-img" src="Assets/mitis_normal.png" alt="Mitis">
             </div>
             <button id="toggle-art-btn" class="btn-toggle-art">Ver versión Chibi ✨</button>
         </div>
 
         <div class="info-column">
-            
             <div class="char-header">
                 <h1 class="char-name title-font">Mitis</h1>
                 <div class="char-rarity">⭐⭐⭐⭐</div>
-                <div class="badges">
-                    <span class="badge badge-type">Tipo: Destrucción</span>
-                    <span class="badge">Arquetipo: Bondadoso / Tierno</span>
-                    <span class="badge">Edad: 18-22 años</span>
+                <div class="header-details">
+                    <div class="info-tag">
+                        <img src="Assets/type_icon.png" class="tag-icon"> <span>Tipo: Destrucción</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap: 10px;">
+                        <span>Elementos:</span>
+                        <img src="Assets/light.png" class="el-icon">
+                        <img src="Assets/fire.png" class="el-icon">
+                        <img src="Assets/wind.png" class="el-icon">
+                    </div>
                 </div>
             </div>
 
             <div class="info-section">
                 <h3>Vínculo e Historia</h3>
-                <p>Os encontráis en la puerta de la ciudad tras ser asignados con la misma misión. Os hacéis amigos rápidamente y descubres que la razón por la que Mitis se ha unido al gremio es porque le encanta ayudar a los demás.</p>
+                <p>Os encontráis en la puerta de la ciudad tras ser asignados con la misma misión. Os hacéis amigos rápidamente. Descubres que su razón para unirse al gremio es su amor por ayudar a los demás.</p>
                 <p>Tras superar la misión, le cuentas a Mitis tu razón para unirte al gremio y él decide acompañarte en tu aventura, haciéndose así un miembro definitivo de tu equipo.</p>
             </div>
 
             <div class="info-section">
-                <h3>Perfil Psicológico</h3>
-                <p>Un joven que ama ayudar a los demás, con una sonrisa constante. Siempre está buscando aventuras y hacer felices a quienes se encuentra. Tiene una energía infinita, es incansable. Sin embargo, cuando encuentra injusticias, no duda en ponerse serio y actuar de forma implacable.</p>
+                <h3>Personalidad</h3>
+                <p>Un joven que ama ayudar a los demás, con una sonrisa constante, siempre está buscando aventuras y hacer felices a quienes se encuentra. Tiene una energía infinita, es incansable. Sin embargo, cuando encuentra injusticias, no duda en ponerse serio y actuar.</p>
             </div>
 
             <div class="info-section">
                 <h3>Dominio Elemental y Hechizos</h3>
                 <ul class="skills-list">
-                    <li>
-                        <strong>Luz (DPS)</strong>
-                        Ataques mágicos centrados en infligir daño directo y deslumbrar a los enemigos mediante la concentración de fotones en la tinta.
-                    </li>
-                    <li>
-                        <strong>Fuego (DPS): Terra passione</strong>
-                        Crea un pequeño campo de fuego en el suelo que hace daño constante (DoT) a los enemigos que se encuentren dentro del área afectada.
-                    </li>
-                    <li>
-                        <strong>Viento (DPS): Lamina ventus / Cultro ventus</strong>
-                        <em>Lamina ventus:</em> Lanza una ráfaga de cuchillas de viento a los enemigos.<br>
-                        <em>Cultro ventus:</em> Dibuja y lanza un cuchillo gigante de aire comprimido con gran poder de impacto.
-                    </li>
+                    <li><strong>Luz (DPS)</strong>: Ataques mágicos directos concentrando fotones en la tinta.</li>
+                    <li><strong>Fuego (DPS): Terra passione</strong>: Crea un pequeño campo de fuego en el suelo que hace daño constante a los enemigos.</li>
+                    <li><strong>Viento (DPS): Lamina ventus / Cultro ventus</strong>: Lanza ráfagas de cuchillas y un cuchillo gigante de aire con gran impacto.</li>
                 </ul>
             </div>
-
         </div>
     </main>
 
     <script>
-        // Lógica para alternar entre el arte normal y el chibi
         const imgElement = document.getElementById('mitis-art');
         const toggleBtn = document.getElementById('toggle-art-btn');
-
-        // Configura aquí las rutas de tus dos imágenes
-        const imgNormal = 'Assets/mitis_normal.png';
-        const imgChibi = 'Assets/mitis_chibi.png';
-
         let isChibi = false;
 
         toggleBtn.addEventListener('click', () => {
-            // Efecto de desvanecimiento
             imgElement.style.opacity = 0;
-            
             setTimeout(() => {
-                if (isChibi) {
-                    imgElement.src = imgNormal;
-                    toggleBtn.innerHTML = 'Ver versión Chibi ✨';
-                    isChibi = false;
-                } else {
-                    imgElement.src = imgChibi;
-                    toggleBtn.innerHTML = 'Ver versión Normal ✒️';
-                    isChibi = true;
-                }
-                // Restaurar visibilidad
+                imgElement.src = isChibi ? 'Assets/mitis_normal.png' : 'Assets/mitis_chibi.png';
+                toggleBtn.innerHTML = isChibi ? 'Ver versión Chibi ✨' : 'Ver versión Normal ✒️';
+                isChibi = !isChibi;
                 imgElement.style.opacity = 1;
-            }, 300); // 300ms debe coincidir con la transición en CSS
+            }, 300);
         });
     </script>
 </body>
