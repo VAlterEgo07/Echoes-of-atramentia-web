@@ -70,7 +70,7 @@
         
         <div class="art-column">
             <div class="art-wrapper">
-                <img id="mitis-art" class="character-img" src="Assets/mitis_normal.png" alt="Mitis">
+                <img id="mitis-art" class="character-img" src="../Assets/mitis_normal.png" alt="Mitis">
             </div>
             <button id="toggle-art-btn" class="btn-toggle-art">Ver versión Chibi ✨</button>
         </div>
@@ -122,7 +122,7 @@
         toggleBtn.addEventListener('click', () => {
             imgElement.style.opacity = 0;
             setTimeout(() => {
-                imgElement.src = isChibi ? 'Assets/mitis_normal.png' : 'Assets/mitis_chibi.png';
+                imgElement.src = isChibi ? '../Assets/mitis_normal.png' : '../Assets/mitis_chibi.png';
                 toggleBtn.innerHTML = isChibi ? 'Ver versión Chibi ✨' : 'Ver versión Normal ✒️';
                 isChibi = !isChibi;
                 imgElement.style.opacity = 1;
