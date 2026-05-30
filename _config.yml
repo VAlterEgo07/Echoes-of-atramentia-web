@@ -1,4 +1,0 @@
-collections:
-  personajes:
-    output: true
-    permalink: /CharacterSheets/:path/
