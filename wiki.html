@@ -240,25 +240,27 @@
         </section>
 
     <section id="clases" class="paper-section">
-        <h2 class="section-title">Personajes</h2>
-        <p class="intro-text">Explora a los miembros registrados en nuestro archivo:</p>
+    <h2 class="section-title">2. Gremio de Personajes</h2>
+    <p class="intro-text">Selecciona un miembro para ver su archivo:</p>
+    
+    <div class="vertical-carousel" id="contenedor-personajes">
         
-        <div class="notebook-entries">
-            <!-- Esto busca todos los archivos en la colección y crea una tarjeta para cada uno -->
-            {% for personaje in site.personajes %}
-            <details class="cozy-details">
-                <summary>
-                    <!-- Aquí asumimos que en el front-matter del HTML del personaje definiste un campo 'avatar' -->
-                    <img src="{{ personaje.avatar }}" alt="{{ personaje.title }}" class="character-img">
-                    <span><strong>{{ personaje.title }}</strong></span>
-                </summary>
-                <div class="details-content">
-                    <a href="{{ personaje.url }}">Ver ficha completa del personaje</a>
+        <!-- COPIA Y PEGA ESTE BLOQUE PARA CADA NUEVO PERSONAJE -->
+        <details class="cozy-details">
+            <summary>
+                <div class="avatar-circle">
+                    <img src="Assets/mitis.png" alt="Mitis">
                 </div>
-            </details>
-            {% endfor %}
-        </div>
-    </section>
+                <span><strong>Mitis</strong></span>
+            </summary>
+            <div class="details-content">
+                <a href="CharacterSheets/mitis.html">Ver ficha técnica</a>
+            </div>
+        </details>
+        <!-- FIN DEL BLOQUE -->
+
+    </div>
+</section>
 
     </main>
 
