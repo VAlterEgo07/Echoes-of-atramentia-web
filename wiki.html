@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echoes of Atramentia: The Drawn Spell</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-banner">
+            <h1>Echoes of Atramentia</h1>
+            <p class="subtitle">~ The Drawn Spell ~</p>
+            <p class="tagline">Donde los trazos de tu libreta se convierten en magia viva</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#habilidades">Libreta de Habilidades</a>
+        <a href="#clases">Gremio de Personajes</a>
+        <a href="#magia">Elementos Esenciales</a>
+        <a href="#glifos">Círculo de Glifos</a>
+    </nav>
+
+    <main class="container">
+        
+        <!-- Sección Habilidades -->
+        <section id="habilidades" class="paper-section">
+            <h2 class="section-title">Personajes y Sistema de Combate</h2>
+            <h3>1. El Arte de las Habilidades</h3>
+            <p>En el mundo de Atramentia, la magia no se recita; se dibuja con paciencia y precisión en tu diario de bolsillo:</p>
+            <ul class="cozy-list">
+                <li><strong>Ataque básico y cargado:</strong> Uso de un hechizo pre-dibujado en tu libreta. Sin cooldown. Los cargados requieren mantener el trazo para mayor duración o potencia.</li>
+                <li><strong>Hechizo Rápido:</strong> Se activan con cooldowns. Exigen dibujar el patrón mágico a gran velocidad; la calidad y fidelidad del trazo definen el daño infligido.</li>
+                <li><strong>Hechizo Personal:</strong> La técnica definitiva y compleja de cada personaje. Desata un poder devastador bajo condiciones únicas de combate.</li>
+                <li><strong>Pasiva de Combate:</strong> Espíritus de tinta que asisten activamente (invocaciones) o imbuyen mejoras místicas (bufos) de forma permanente o tras combos.</li>
+                <li><strong>Pasiva de Exploración:</strong> Talentos cotidianos que mejoran la vida en el campamento, tales como la cocina, la recolección de plantas y la cartografía.</li>
+            </ul>
+        </section>
+
+        <!-- Sección Clases (Generado con Details/Summary) -->
+        <section id="clases" class="paper-section">
+            <h2 class="section-title">2. Tipos de Personajes</h2>
+            <p class="intro-text">La personalidad del artista define su estilo de trazo, el tipo de arma que empuña y su rol en el campo de batalla. Despliega cada afinidad para leer sus anotaciones:</p>
+            
+            <div class="notebook-entries">
+                
+                <details class="cozy-details">
+                    <summary>
+                        <img src="Assets/destruccion.png" alt="Destrucción" class="character-img" onerror="this.src='https://via.placeholder.com/60?text=D'">
+                        <span><strong>Destrucción</strong> - <em>Hiperactiva, inquieta y apasionada.</em></span>
+                    </summary>
+                    <div class="details-content">
+                        <p><strong>Rol:</strong> Hechicero de ráfaga veloz y daño por segundo constante.</p>
+                        <p>Debido a su naturaleza impulsiva, son los magos más rápidos plasmando conjuros en papel. Sin embargo, al dibujar con excesiva prisa, la fidelidad geométrica de sus trazos disminuye, haciendo que su daño base por hechizo individual sea más comedido.</p>
+                        <ul class="stats-list">
+                            <li>Velocidad de Trazo: <strong>Alta (95%)</strong></li>
+                            <li>Precisión Geométrica: <strong>Baja (42%)</strong></li>
+                            <li>Potencia de Impacto: <strong>Media (58%)</strong></li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="cozy-details">
+                    <summary>
+                        <img src="Assets/concentracion.png" alt="Concentración" class="character-img" onerror="this.src='https://via.placeholder.com/60?text=C'">
+                        <span><strong>Concentración</strong> - <em>Perfeccionista, paciente y sumamente detallista.</em></span>
+                    </summary>
+                    <div class="details-content">
+                        <p><strong>Rol:</strong> Lanzador de golpes críticos devastadores.</p>
+                        <p>Buscan la perfección geométrica absoluta en cada runa. Se toman su tiempo para trazar líneas inmaculadas, prolongando sus tiempos de lanzamiento y recarga. A cambio, sus hechizos poseen una pureza mágica impecable que desata un impacto colosal.</p>
+                        <ul class="stats-list">
+                            <li>Velocidad de Trazo: <strong>Baja (30%)</strong></li>
+                            <li>Precisión Geométrica: <strong>Perfecta (98%)</strong></li>
+                            <li>Potencia de Impacto: <strong>Devastadora (95%)</strong></li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="cozy-details">
+                    <summary>
+                        <img src="Assets/equilibrio.png" alt="Equilibrio" class="character-img" onerror="this.src='https://via.placeholder.com/60?text=E'">
+                        <span><strong>Equilibrio</strong> - <em>Pragmática, adaptativa y centrada.</em></span>
+                    </summary>
+                    <div class="details-content">
+                        <p><strong>Rol:</strong> Mago polivalente y balanceado.</p>
+                        <p>No se obsesionan con la perfección absoluta, sino con un resultado funcional y eficiente. Encuentran el punto medio perfecto: sus hechizos retienen un daño muy respetable mientras disfrutan de una velocidad de ejecución y recarga sumamente fluida.</p>
+                        <ul class="stats-list">
+                            <li>Velocidad de Trazo: <strong>Buena (75%)</strong></li>
+                            <li>Precisión Geométrica: <strong>Buena (70%)</strong></li>
+                            <li>Potencia de Impacto: <strong>Buena (72%)</strong></li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="cozy-details">
+                    <summary>
+                        <img src="Assets/soporte.png" alt="Soporte" class="character-img" onerror="this.src='https://via.placeholder.com/60?text=S'">
+                        <span><strong>Soporte</strong> - <em>Altruista, cuidadora y protectora del grupo.</em></span>
+                    </summary>
+                    <div class="details-content">
+                        <p><strong>Rol:</strong> Sanador, mitigador de daño y potenciador elemental.</p>
+                        <p>Aunque su capacidad ofensiva directa con la tinta es reducida, canalizan sus dotes artísticas en restaurar la vitalidad de sus compañeros, limpiar efectos alterados y optimizar los círculos mágicos aliados para maximizar el poder grupal.</p>
+                        <ul class="stats-list">
+                            <li>Velocidad de Trazo: <strong>Media (65%)</strong></li>
+                            <li>Precisión Geométrica: <strong>Media (60%)</strong></li>
+                            <li>Potencia de Impacto: <strong>Baja (35%)</strong></li>
+                        </ul>
+                    </div>
+                </details>
+
+            </div>
+        </section>
+
+        <!-- Sección Magia y Elementos -->
+        <section id="magia" class="paper-section">
+            <h2 class="section-title">3. Esencias Elementales</h2>
+            <div class="grid-2">
+                <div>
+                    <p>La tinta imbuye propiedades naturales al papel. Los elementos se manifiestan según el flujo de energía mística empleado:</p>
+                    <div class="badge-container">
+                        <span class="element-badge badge-fuego"><img src="Assets/fire.png" alt="Fuego"> Fuego</span>
+                        <span class="element-badge badge-viento"><img src="Assets/wind.png" alt="Viento"> Viento</span>
+                        <span class="element-badge badge-agua"><img src="Assets/water.png" alt="Agua"> Agua</span>
+                        <span class="element-badge badge-tierra"><img src="Assets/rock.png" alt="Tierra"> Tierra</span>
+                        <span class="element-badge badge-luz complex"><img src="Assets/light.png" alt="Luz"> Luz</span>
+                        <span class="element-badge badge-oscuridad complex"><img src="Assets/void.png" alt="Oscuridad"> Oscuridad</span>
+                        <span class="element-badge badge-eter complex"><img src="Assets/eter.png" alt="Éter"> Éter</span>
+                    </div>
+                </div>
+                <div class="notebook-card">
+                    <h4>Geometría de los Círculos Mágicos</h4>
+                    <p>La posición de la tinta altera el resultado final del conjuro:</p>
+                    <ul class="cozy-list">
+                        <li><strong>En el Centro:</strong> Define el elemento primordial y núcleo del hechizo.</li>
+                        <li><strong>En los Márgenes:</strong> Actúa como catalizador secundario o desencadenante de reacciones.</li>
+                        <li><strong>Círculos Superpuestos:</strong> Al entrelazar múltiples elementos y modificadores, nace un hechizo complejo.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Glifos (Todo generado) -->
+        <section id="glifos" class="paper-section">
+            <h2 class="section-title">4. Compendio de Glifos</h2>
+            <p class="intro-text">Los glifos dan dirección, propósito y forma a la energía elemental del círculo central.</p>
+            
+            <h3>Glifos de Función Básicos</h3>
+            <div class="grid-glyphs">
+                
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/levitation.png" alt="Levitación" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=O'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Levitación</h4>
+                        <p>Permite suspender objetos. Raro caso aelemental; se plasma directamente en el corazón del círculo.</p>
+                    </div>
+                </div>
+
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/destruction.png" alt="Destrucción" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=X'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Destrucción</h4>
+                        <p>Aplicado a estructuras o terrenos, ideal para dotar de propiedades explosivas a los proyectiles.</p>
+                    </div>
+                </div>
+
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/heal.png" alt="Sanación" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=+'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Sanación</h4>
+                        <p>Cierra heridas y purga estados deletéreos. Se coloca en los bordes junto al elemento afín.</p>
+                    </div>
+                </div>
+
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/buff.png" alt="Buff" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=^'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Buff (Mejora)</h4>
+                        <p>Eleva los atributos físicos o refina la pureza elemental de un aliado. Satélite secundario.</p>
+                    </div>
+                </div>
+
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/damage.png" alt="Daño" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=!'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Daño</h4>
+                        <p>Potenciador puramente ofensivo encargado de acelerar y agudizar los proyectiles mágicos.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <h3 style="margin-top: 40px;">Glifos de Función Complejos</h3>
+            <div class="grid-glyphs">
+                
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/invocation.png" alt="Invocación" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=*'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Invocación</h4>
+                        <p>Núcleo complejo de los rituales de tinta. Atrae entidades y constructos autónomos al combate.</p>
+                    </div>
+                </div>
+
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/creation.png" alt="Creación" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=#'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Creación</h4>
+                        <p>Materializa baluartes, escudos protectores permanentes o incluso estructuras arquitectónicas.</p>
+                    </div>
+                </div>
+
+                <div class="glyph-card">
+                    <div class="glyph-image-container">
+                        <img src="Assets/debuff.png" alt="Debuff" class="glyph-img" onerror="this.src='https://via.placeholder.com/40?text=v'">
+                    </div>
+                    <div class="glyph-info">
+                        <h4>Glifo de Debuff (Perjuicio)</h4>
+                        <p>Mitiga el ímpetu o quiebra la eficiencia mística de los objetivos adversarios debilitándolos.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Echoes of Atramentia: The Drawn Spell &copy; 2026 by Inkwell Studios.</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Licensed under CC BY-NC-ND 4.0</p>
+    </footer>
+
+</body>
+</html>

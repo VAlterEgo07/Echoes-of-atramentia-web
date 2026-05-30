@@ -1,0 +1,332 @@
+/* --- ESTILOS DE LA PORTADA PROMOCIONAL --- */
+
+:root {
+    --primary-color: #df7a5e;
+    --text-light: #f7f2e8;
+    --dark-bg: #111;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+h1, h2, .nav-brand {
+    font-family: 'Cinzel', serif;
+}
+
+/* --- NAVEGACIÓN --- */
+.top-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 5%;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+}
+
+.nav-brand {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #fff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.btn-wiki {
+    background-color: var(--primary-color);
+    padding: 10px 24px;
+    border-radius: 30px;
+    border: 2px solid var(--primary-color);
+}
+
+.btn-wiki:hover {
+    background-color: transparent;
+    color: var(--primary-color) !important;
+}
+
+/* --- SECCIONES FULLSCREEN --- */
+.fullscreen-section {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+    animation: slowZoom 25s infinite alternate linear;
+}
+
+@keyframes slowZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+}
+
+/* Capas de oscuridad para PC */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+.gradient-overlay-right {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 10%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
+}
+
+.gradient-overlay-left {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, transparent 10%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
+}
+
+/* --- CONTENEDORES FLEX --- */
+.content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+}
+
+/* Alineaciones según sección */
+.center-aligned .content { justify-content: center; }
+.right-aligned .content { justify-content: flex-end; }
+.left-aligned .content { justify-content: flex-start; }
+
+/* La caja que guarda el texto */
+.content-box {
+    width: 100%;
+    max-width: 550px;
+}
+
+/* Caja de cristal para que el texto sea siempre legible */
+.glass-box {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- TEXTOS --- */
+.center-aligned .content-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-logo {
+    font-size: clamp(3rem, 8vw, 6rem);
+    text-shadow: 2px 4px 15px rgba(0,0,0,0.8);
+    margin-bottom: 0;
+    line-height: 1.1;
+}
+
+.tagline {
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+    font-family: 'Cinzel', serif;
+    color: var(--primary-color);
+    letter-spacing: 5px;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+.section-heading {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+.section-text {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.8;
+    color: #eaeaea;
+    margin-bottom: 30px;
+}
+
+/* --- BOTONES --- */
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 15px 35px;
+    font-size: 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #fff;
+    color: #000;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.btn-text {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: letter-spacing 0.3s;
+}
+
+.btn-text:hover { letter-spacing: 1px; }
+
+.platforms {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+/* --- FOOTER --- */
+.promo-footer {
+    background-color: #050505;
+    padding: 60px 20px;
+    text-align: center;
+    border-top: 1px solid #222;
+}
+
+.promo-footer h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.promo-footer p {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* =========================================
+   COMPATIBILIDAD MÓVIL (Smartphones & Tablets)
+   ========================================= */
+@media (max-width: 900px) {
+    /* Navbar móvil */
+    .top-nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        background: rgba(0,0,0,0.85); /* Fondo sólido para que se lea siempre */
+    }
+    
+    /* Reagrupando los enlaces para que quepan */
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .btn-wiki {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    /* Ajuste de Secciones */
+    .fullscreen-section {
+        padding: 150px 0 80px 0; /* Espacio superior para el menú móvil */
+        height: auto;
+    }
+
+    /* Centrar todo en móvil, sin importar si era derecha o izquierda */
+    .right-aligned .content, 
+    .left-aligned .content {
+        justify-content: center;
+    }
+
+    /* Ajuste de la caja de cristal */
+    .glass-box {
+        padding: 30px 20px;
+        text-align: center; /* Mejor lectura centrada en móvil */
+        background: rgba(0, 0, 0, 0.65); /* Más oscuro en móvil para contrastar */
+    }
+
+    /* Uniformar los overlays de fondo en móvil (quitar los gradientes direccionales) */
+    .gradient-overlay-right, 
+    .gradient-overlay-left {
+        background: rgba(0,0,0,0.5); 
+    }
+
+    /* Botones Hero en columna */
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+}
