@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,21 +58,21 @@
         <div class="header-banner">
             <h1>Echoes of Atramentia</h1>
             <p class="subtitle">~ The Drawn Spell ~</p>
-            <p class="tagline">Where your notebook's strokes become living magic</p>
+            <p class="tagline">Donde los trazos de tu libreta se convierten en magia viva</p>
         </div>
     </header>
 
     <nav>
-        <a href="../wiki.html">&larr; Back to Guild</a>
+        <a href="../wiki.html">&larr; Volver al Menú</a>
     </nav>
 
     <main class="character-container">
         
         <div class="art-column">
             <div class="art-wrapper">
-                <img id="mitis-art" class="character-img" src="/Assets/mitis_normal.png" alt="Mitis">
+                <img id="mitis-art" class="character-img" src="../Assets/mitis_normal.png" alt="Mitis">
             </div>
-            <button id="toggle-art-btn" class="btn-toggle-art">View Chibi version ✨</button>
+            <button id="toggle-art-btn" class="btn-toggle-art">Ver versión Chibi ✨</button>
         </div>
 
         <div class="info-column">
@@ -81,34 +81,34 @@
                 <div class="char-rarity">⭐⭐⭐⭐</div>
                 <div class="header-details">
                     <div class="info-tag">
-                        <img src="/Assets/type_icon.png" class="tag-icon"> <span>Role: Destruction</span>
+                        <img src="../Assets/destructive.png" class="tag-icon"> <span>Tipo: Destrucción</span>
                     </div>
                     <div style="display:flex; align-items:center; gap: 10px;">
-                        <span>Elements:</span>
-                        <img src="/Assets/light.png" class="el-icon">
-                        <img src="/Assets/fire.png" class="el-icon">
-                        <img src="/Assets/wind.png" class="el-icon">
+                        <span>Elementos:</span>
+                        <img src="../Assets/light.png" class="el-icon">
+                        <img src="../Assets/fire.png" class="el-icon">
+                        <img src="../Assets/wind.png" class="el-icon">
                     </div>
                 </div>
             </div>
 
             <div class="info-section">
-                <h3>Bond & History</h3>
-                <p>You meet at the city gates after being assigned to the same mission. You quickly become friends, discovering that Mitis joined the guild out of a genuine desire to help others.</p>
-                <p>After completing the mission, you share your reasons for joining the guild, and Mitis decides to join your party, becoming a definitive member of your team.</p>
+                <h3>Vínculo e Historia</h3>
+                <p>Os encontráis en la puerta de la ciudad tras ser asignados con la misma misión. Os hacéis amigos rápidamente. Descubres que su razón para unirse al gremio es su amor por ayudar a los demás.</p>
+                <p>Tras superar la misión, le cuentas a Mitis tu razón para unirte al gremio y él decide acompañarte en tu aventura, haciéndose así un miembro definitivo de tu equipo.</p>
             </div>
 
             <div class="info-section">
-                <h3>Personality</h3>
-                <p>A young man who loves helping others, always wearing a constant smile. He is tireless, endlessly searching for adventures and joy. However, when faced with injustice, his demeanor shifts, and he does not hesitate to act with firm resolve.</p>
+                <h3>Personalidad</h3>
+                <p>Un joven que ama ayudar a los demás, con una sonrisa constante, siempre está buscando aventuras y hacer felices a quienes se encuentra. Tiene una energía infinita, es incansable. Sin embargo, cuando encuentra injusticias, no duda en ponerse serio y actuar.</p>
             </div>
 
             <div class="info-section">
-                <h3>Elemental Domain & Spells</h3>
+                <h3>Dominio Elemental y Hechizos</h3>
                 <ul class="skills-list">
-                    <li><strong>Light (DPS)</strong>: Magic attacks focusing on direct damage and dazzling enemies through photon concentration in ink.</li>
-                    <li><strong>Fire (DPS): Terra passione</strong>: Creates a small fire field on the ground that inflicts constant damage to enemies within the area.</li>
-                    <li><strong>Wind (DPS): Lamina ventus / Cultro ventus</strong>: Launches gusts of wind blades and a giant air knife with great impact power.</li>
+                    <li><strong>Luz (DPS)</strong>: Ataques mágicos directos concentrando fotones en la tinta.</li>
+                    <li><strong>Fuego (DPS): Terra passione</strong>: Crea un pequeño campo de fuego en el suelo que hace daño constante a los enemigos.</li>
+                    <li><strong>Viento (DPS): Lamina ventus / Cultro ventus</strong>: Lanza ráfagas de cuchillas y un cuchillo gigante de aire con gran impacto.</li>
                 </ul>
             </div>
         </div>
@@ -122,8 +122,8 @@
         toggleBtn.addEventListener('click', () => {
             imgElement.style.opacity = 0;
             setTimeout(() => {
-                imgElement.src = isChibi ? '/Assets/mitis_normal.png' : '/Assets/mitis_chibi.png';
-                toggleBtn.innerHTML = isChibi ? 'View Chibi version ✨' : 'View Normal version ✒️';
+                imgElement.src = isChibi ? '../Assets/mitis_normal.png' : '../Assets/mitis_chibi.png';
+                toggleBtn.innerHTML = isChibi ? 'Ver versión Chibi ✨' : 'Ver versión Normal ✒️';
                 isChibi = !isChibi;
                 imgElement.style.opacity = 1;
             }, 300);
