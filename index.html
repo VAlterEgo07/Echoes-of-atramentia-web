@@ -1,81 +1,104 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Echoes of Atramentia - Official Site</title>
-        <link rel="stylesheet" href="styles-promo.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echoes of Atramentia - Official Site</title>
+    <link rel="stylesheet" href="styles-promo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
 
-        <nav class="top-nav">
-            <div class="nav-brand">INKWELL STUDIOS</div>
-            <div class="nav-links">
-                <a href="#inicio">Home</a>
-                <a href="#mundo">The World</a>
-                <a href="#combate">Art & Magic</a>
-                <a href="wiki.html" class="btn-wiki">Official Wiki &nbsp; </a>
-            </div>
-        </nav>
+    <nav class="top-nav">
+        <div class="nav-brand">INKWELL STUDIOS</div>
+        <div class="nav-links">
+            <a href="#inicio">Home</a>
+            <a href="#mundo">The World</a>
+            <a href="#combate">Art & Magic</a>
+            <a href="wiki.html" class="btn-wiki">Official Wiki &nbsp; </a>
+            <button id="btn-login-epic" class="btn-wiki" style="cursor: pointer; border: none; background: none; font-family: 'Cinzel', serif; padding: 0; color: inherit;">Login Epic Games</button>
+        </div>
+    </nav>
 
-        <section id="inicio" class="fullscreen-section center-aligned">
-            <div class="bg-image" style="background-image: url('Assets/hero-bg.jpg');"></div>
-            <div class="overlay"></div>
-            
-            <div class="content">
-                <div class="content-box">
-                    <h1 class="game-logo">Echoes of Atramentia</h1>
-                    <p class="tagline">The Drawn Spell</p>
-                    <div class="action-buttons">
-                        <a href="#" class="btn-primary">Watch Trailer</a>
-                        <a href="wiki.html" class="btn-secondary">Explore Mechanics</a>
-                    </div>
-                    <p class="platforms">Coming soon to PC and Mobile Devices</p>
+    <section id="inicio" class="fullscreen-section center-aligned">
+        <div class="bg-image" style="background-image: url('Assets/hero-bg.jpg');"></div>
+        <div class="overlay"></div>
+        
+        <div class="content">
+            <div class="content-box">
+                <h1 class="game-logo">Echoes of Atramentia</h1>
+                <p class="tagline">The Drawn Spell</p>
+                <div class="action-buttons">
+                    <a href="#" class="btn-primary">Watch Trailer</a>
+                    <a href="wiki.html" class="btn-secondary">Explore Mechanics</a>
                 </div>
+                <p class="platforms">Coming soon to PC and Mobile Devices</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="mundo" class="fullscreen-section right-aligned">
-            <div class="bg-image" style="background-image: url('Assets/world-bg.jpg');"></div>
-            <div class="gradient-overlay-right"></div>
-            
-            <div class="content">
-                <div class="content-box glass-box">
-                    <h2 class="section-heading">A canvas waiting to be written</h2>
-                    <p class="section-text">
-                        Delve into a universe where ink is the blood of the world and paper is the fabric of reality. 
-                        Explore immense landscapes, from warm and cozy artist workshops to forgotten ruins where primordial magic still stains the walls.
-                    </p>
-                </div>
+    <section id="mundo" class="fullscreen-section right-aligned">
+        <div class="bg-image" style="background-image: url('Assets/world-bg.jpg');"></div>
+        <div class="gradient-overlay-right"></div>
+        
+        <div class="content">
+            <div class="content-box glass-box">
+                <h2 class="section-heading">A canvas waiting to be written</h2>
+                <p class="section-text">
+                    Delve into a universe where ink is the blood of the world and paper is the fabric of reality. 
+                    Explore immense landscapes, from warm and cozy artist workshops to forgotten ruins where primordial magic still stains the walls.
+                </p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="combate" class="fullscreen-section left-aligned">
-            <div class="bg-image" style="background-image: url('Assets/combat-bg.jpg');"></div>
-            <div class="gradient-overlay-left"></div>
-            
-            <div class="content">
-                <div class="content-box glass-box">
-                    <h2 class="section-heading">Draw your own destiny</h2>
-                    <p class="section-text">
-                        Forget about reciting incantations. In Echoes of Atramentia, your pocket notebook is your deadliest weapon. 
-                        Trace spells in real-time, combine elements in complex magic circles, and unleash destruction or heal your allies depending on the purity of your tracing.
-                    </p>
-                    <a href="wiki.html#magia" class="btn-text">Discover the Elemental System &rarr;</a>
-                </div>
+    <section id="combate" class="fullscreen-section left-aligned">
+        <div class="bg-image" style="background-image: url('Assets/combat-bg.jpg');"></div>
+        <div class="gradient-overlay-left"></div>
+        
+        <div class="content">
+            <div class="content-box glass-box">
+                <h2 class="section-heading">Draw your own destiny</h2>
+                <p class="section-text">
+                    Forget about reciting incantations. In Echoes of Atramentia, your pocket notebook is your deadliest weapon. 
+                    Trace spells in real-time, combine elements in complex magic circles, and unleash destruction or heal your allies depending on the purity of your tracing.
+                </p>
+                <a href="wiki.html#magia" class="btn-text">Discover the Elemental System &rarr;</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer class="promo-footer">
-            <div class="footer-content">
-                <h2>Echoes of Atramentia: The Drawn Spell</h2>
-                <p>&copy; 2026 Inkwell Studios. All rights reserved.</p>
-                <p><a href="privacy.html" style="color: #666; text-decoration: none;">Privacy Policy</a></p>
-            </div>
-        </footer>
+    <footer class="promo-footer">
+        <div class="footer-content">
+            <h2>Echoes of Atramentia: The Drawn Spell</h2>
+            <p>&copy; 2026 Inkwell Studios. All rights reserved.</p>
+            <p><a href="privacy.html" style="color: #666; text-decoration: none;">Privacy Policy</a></p>
+        </div>
+    </footer>
 
-    </body>
-    </html>
+    <script>
+        // Sustituye con los datos reales de tu panel de Supabase (Settings > API)
+        const supabaseUrl = 'https://[TU-ID-DE-PROYECTO].supabase.co';
+        const supabaseKey = 'TU-CLAVE-ANON-PUBLICA';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        document.getElementById('btn-login-epic').addEventListener('click', async () => {
+            const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: 'epicgames', // Asegúrate de que este nombre coincida con el que pusiste en Supabase
+                options: {
+                    redirectTo: 'https://www.echoesofatramentia.com/recompensas.html' 
+                }
+            });
+
+            if (error) {
+                console.error("Error al iniciar sesión:", error.message);
+                alert("Hubo un problema al conectar con Epic Games.");
+            }
+        });
+    </script>
+</body>
+</html>
