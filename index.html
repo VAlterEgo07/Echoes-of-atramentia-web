@@ -72,6 +72,24 @@
         </div>
     </section>
 
+    <section id="preregistro" class="fullscreen-section center-aligned">
+        <div class="bg-image" style="background-image: url('Assets/preregister-bg.jpg'); filter: brightness(0.7);"></div>
+        <div class="overlay"></div>
+        
+        <div class="content">
+            <div class="content-box glass-box">
+                <h2 class="section-heading">Pre-Register Now</h2>
+                <p class="section-text" style="margin-bottom: 30px;">
+                    Link your Epic Games account today to secure exclusive day-one rewards, including a special Pioneer's Ink skin and a unique title for your profile. 
+                    Pre-register now and your rewards will be waiting for you to claim when the game launches!
+                </p>
+                <button id="btn-preregistro-epic" class="btn-primary" style="cursor: pointer; border: none; font-family: 'Cinzel', serif; font-size: 1.1rem; padding: 15px 30px;">
+                    Pre-Register with Epic Games
+                </button>
+            </div>
+        </div>
+    </section>
+
     <footer class="promo-footer">
         <div class="footer-content">
             <h2>Echoes of Atramentia: The Drawn Spell</h2>
@@ -86,9 +104,9 @@
         const supabaseKey = 'TU-CLAVE-ANON-PUBLICA';
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-        document.getElementById('btn-login-epic').addEventListener('click', async () => {
+        const loginConEpic = async () => {
             const { data, error } = await supabase.auth.signInWithOAuth({
-                provider: 'epicgames', // Asegúrate de que este nombre coincida con el que pusiste en Supabase
+                provider: 'epicgames', 
                 options: {
                     redirectTo: 'https://www.echoesofatramentia.com/recompensas.html' 
                 }
@@ -98,7 +116,10 @@
                 console.error("Error al iniciar sesión:", error.message);
                 alert("Hubo un problema al conectar con Epic Games.");
             }
-        });
+        };
+
+        document.getElementById('btn-login-epic').addEventListener('click', loginConEpic);
+        document.getElementById('btn-preregistro-epic').addEventListener('click', loginConEpic);
     </script>
 </body>
 </html>
