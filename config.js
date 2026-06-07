@@ -8,4 +8,4 @@ if (!window.miSupabase) {
 }
 
 // Usamos la instancia global
-const supabase = window.miSupabase;
+const atramentiaDB = window.miSupabase;

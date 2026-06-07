@@ -1,7 +1,9 @@
 // auth.js
+
 // 2. Función para disparar el Login hacia Epic Games
 const loginConEpic = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    // Usamos nuestra nueva constante atramentiaDB
+    const { data, error } = await atramentiaDB.auth.signInWithOAuth({
         provider: 'custom:epic-games', 
         options: {
             redirectTo: 'https://www.echoesofatramentia.com' 
@@ -14,21 +16,23 @@ const loginConEpic = async () => {
     }
 };
 
-// Asignar el login a los botones (asegurándonos de que existen en la página)
+// Asignar el login a los botones
 const btnLogin = document.getElementById('btn-login-epic');
 const btnPreregistro = document.getElementById('btn-preregistro-epic');
 
 if (btnLogin) btnLogin.addEventListener('click', loginConEpic);
 if (btnPreregistro) btnPreregistro.addEventListener('click', loginConEpic);
 
-// 3. Función para procesar el pre-registro cuando el usuario vuelve a la web
+// 3. Función para procesar el pre-registro
 const procesarPreregistro = async () => {
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    // Usamos atramentiaDB para obtener la sesión
+    const { data: { session }, error: sessionError } = await atramentiaDB.auth.getSession();
 
     if (session) {
         const userId = session.user.id;
 
-        const { error } = await supabase
+        // Usamos atramentiaDB para insertar los datos
+        const { error } = await atramentiaDB
             .from('preregistros')
             .insert([
                 { id: userId, recompensa_reclamada: true }
