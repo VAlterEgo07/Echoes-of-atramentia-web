@@ -26,7 +26,7 @@ async function ejecutarPreRegistro() {
     }
 
     // 1. Comprobar si ya existe
-    const { data: existente } = await supabase
+    const { data: existente } = await atramentiaDB
         .from('preregistros')
         .select('id')
         .eq('id', usuarioEpic.sub)
@@ -38,7 +38,7 @@ async function ejecutarPreRegistro() {
     }
 
     // 2. Insertar si no existe
-    const { error } = await supabase
+    const { error } = await atramentiaDB
         .from('preregistros')
         .insert([{ id: usuarioEpic.sub }]);
 
