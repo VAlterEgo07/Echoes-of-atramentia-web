@@ -1,9 +1,8 @@
 
-const CONFIG = {
-    CLIENT_ID: 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D',
-    REDIRECT_URI: 'https://www.echoesofatramentia.com',
-    EDGE_FUNCTION_URL: 'https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback'
-};
+
+const CLIENT_ID = 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D';
+const REDIRECT_URI = 'https://www.echoesofatramentia.com';
+const EDGE_FUNCTION_URL = 'https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback';
 
 let usuarioEpic = null;
 
