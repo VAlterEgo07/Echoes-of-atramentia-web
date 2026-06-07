@@ -1,71 +1,73 @@
-
-
-const CLIENT_ID = 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D';
-const REDIRECT_URI = 'https://www.echoesofatramentia.com';
-const EDGE_FUNCTION_URL = 'https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback';
+// --- CONFIGURACIÓN ---
+const CONFIG = {
+    CLIENT_ID: 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D',
+    REDIRECT_URI: 'https://www.echoesofatramentia.com',
+    EDGE_FUNCTION_URL: 'https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback'
+};
 
 let usuarioEpic = null;
 
-// --- FUNCIONES LÓGICAS ---
+// --- FUNCIONES ---
+
+function actualizarInterfazLogueado(nombre) {
+    const btnLogin = document.getElementById('btn-login-epic');
+    if (btnLogin) {
+        btnLogin.disabled = true;
+        btnLogin.innerText = `Hola, ${nombre}`;
+        btnLogin.style.opacity = "0.7";
+        btnLogin.style.cursor = "default";
+    }
+}
 
 async function ejecutarPreRegistro() {
-    if (!usuarioEpic) {
-        alert("Primero debes iniciar sesión con Epic Games para pre-registrarte.");
-        return;
-    }
+    if (!usuarioEpic) return;
     
     console.log("Procesando pre-registro para:", usuarioEpic.preferred_username);
-    
-    // Aquí insertarías la lógica para guardar en Supabase
-    // const { error } = await supabase.from('pre_registros').insert(...)
-    
-    alert(`¡Gracias, ${usuarioEpic.preferred_username}! Te has pre-registrado correctamente en Echoes of Atramentia.`);
+    alert(`¡Hola, ${usuarioEpic.preferred_username}! Pre-registro completado con éxito.`);
 }
 
 function iniciarLoginEpic() {
-    const url = `https://www.epicgames.com/id/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=basic_profile`;
+    const url = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile`;
     window.location.href = url;
 }
 
-// --- EVENTOS DE CARGA ---
-
+// --- INICIALIZACIÓN ---
 window.addEventListener('load', async () => {
-    // 1. Vincular botones
     const btnLogin = document.getElementById('btn-login-epic');
     const btnPreregistro = document.getElementById('btn-preregistro');
+
+    // Recuperar sesión previa si existe
+    const sesionGuardada = localStorage.getItem('usuarioEpic');
+    if (sesionGuardada) {
+        usuarioEpic = JSON.parse(sesionGuardada);
+        actualizarInterfazLogueado(usuarioEpic.preferred_username);
+    }
 
     if (btnLogin) btnLogin.addEventListener('click', iniciarLoginEpic);
     if (btnPreregistro) btnPreregistro.addEventListener('click', ejecutarPreRegistro);
 
-    // 2. Procesar retorno de Epic (si existe ?code= en la URL)
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-
-    if (code) {
+    // Procesar retorno de Epic
+    const code = new URLSearchParams(window.location.search).get('code');
+    if (code && !usuarioEpic) { // Solo si no tenemos usuario ya
         try {
-            const response = await fetch(EDGE_FUNCTION_URL, {
+            const response = await fetch(CONFIG.EDGE_FUNCTION_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ code: code })
             });
-            
             const result = await response.json();
-
+            
             if (response.ok) {
                 usuarioEpic = result;
-                console.log("Login exitoso. Perfil:", usuarioEpic);
-                
-                // Limpiar URL para higiene de navegación
+                localStorage.setItem('usuarioEpic', JSON.stringify(result));
+                actualizarInterfazLogueado(result.preferred_username);
                 window.history.replaceState({}, document.title, window.location.pathname);
-                
-                // Disparar el pre-registro automáticamente al volver logueado
                 ejecutarPreRegistro();
             } else {
-                throw new Error(result.error || "Error en la autenticación");
+                throw new Error(result.error || "Error");
             }
         } catch (err) {
-            console.error("Error crítico:", err.message);
-            alert("Error al vincular tu cuenta: " + err.message);
+            console.error("Error:", err.message);
         }
     }
 });
