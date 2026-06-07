@@ -290,36 +290,49 @@ nav a:hover { color: var(--accent-color); }
     border: 1px solid var(--accent-color);
 }
 
-/* Contenedor principal de la barra */
+/* Contenedor del Pre-registro */
+#preregistro .content-box {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Espaciado del botón */
+#btn-preregistro {
+    margin-bottom: 40px; /* Separación clara entre botón y barra */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Contenedor de la barra */
 .progress-container {
     width: 100%;
-    max-width: 600px;
-    background: #1a1a2e;
+    max-width: 500px;
+    background: #e0dcd5; /* Tono papel antiguo */
     border-radius: 20px;
-    padding: 4px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    margin: 30px auto; /* MÁS MARGEN PARA QUE NO ESTÉ PEGADO */
-    border: 1px solid #444;
+    padding: 6px;
+    margin: 20px auto;
+    border: 1px solid #c8bca6;
+    overflow: hidden;
 }
-/* La barra que se mueve */
+
 #progress-bar {
-    height: 25px;
+    height: 20px;
     width: 0%;
-    background: linear-gradient(90deg, #6c5ce7, #a29bfe); /* Degradado estilo mágico */
-    border-radius: 16px;
-    transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Rebote suave */
-    box-shadow: 0 0 10px rgba(162, 155, 254, 0.5);
+    background: linear-gradient(90deg, #df7a5e, #f2cc8f); /* Tonos cálidos de tu paleta */
+    border-radius: 15px;
+    transition: width 1.5s ease-out;
     position: relative;
 }
 
-/* Texto del progreso */
 #progress-text {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: #4a3b32;
+    margin-top: 15px;
     text-align: center;
-    color: #e0e0e0;
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: bold;
-    margin-top: 10px;
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 #progress-bar::after {

@@ -32,31 +32,20 @@ async function ejecutarPreRegistro() {
         return;
     }
 
-    // Comprobamos existencia con maybeSingle
-    const { data: existente } = await atramentiaDB
-        .from('prerregistros')
-        .select('epic_id')
-        .eq('epic_id', usuarioEpic.sub)
-        .maybeSingle();
-
-    if (existente) {
-        alert("¡Ya estás pre-registrado en Echoes of Atramentia!");
-        return;
-    }
-
+    // Usamos .upsert en lugar de .insert. 
+    // Si el epic_id ya existe, no dará error, simplemente ignorará la inserción.
     const { error } = await atramentiaDB
         .from('prerregistros')
-        .insert([{ epic_id: usuarioEpic.sub }]);
+        .upsert({ epic_id: usuarioEpic.sub }, { onConflict: 'epic_id' });
 
     if (error) {
-        console.error("Error:", error);
-        alert("Error al intentar el pre-registro.");
+        console.error("Error técnico:", error);
+        alert("Hubo un problema al registrarte.");
     } else {
         alert("¡Pre-registro realizado con éxito!");
-        actualizarProgressBar(); // Refrescar barra tras éxito
+        actualizarProgressBar();
     }
 }
-
 // --- INICIALIZACIÓN ---
 window.addEventListener('load', async () => {
     // 1. Cargar estado de Login
