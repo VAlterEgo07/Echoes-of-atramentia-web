@@ -32,17 +32,18 @@ async function ejecutarPreRegistro() {
         return;
     }
 
-    // Usamos .upsert en lugar de .insert. 
-    // Si el epic_id ya existe, no dará error, simplemente ignorará la inserción.
+    // Usamos upsert: si el epic_id existe, no hace nada (o actualiza)
+    // Esto evita el error de "llave duplicada" (23505)
     const { error } = await atramentiaDB
         .from('prerregistros')
         .upsert({ epic_id: usuarioEpic.sub }, { onConflict: 'epic_id' });
 
     if (error) {
-        console.error("Error técnico:", error);
-        alert("Hubo un problema al registrarte.");
+        console.error("Error al registrar:", error);
+        alert("Hubo un error al procesar el registro.");
     } else {
-        alert("¡Pre-registro realizado con éxito!");
+        // En lugar de dar error, damos un mensaje informativo
+        alert("¡Pre-registro procesado correctamente!");
         actualizarProgressBar();
     }
 }
