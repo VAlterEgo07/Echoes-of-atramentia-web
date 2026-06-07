@@ -20,10 +20,34 @@ function actualizarInterfazLogueado(nombre) {
 }
 
 async function ejecutarPreRegistro() {
-    if (!usuarioEpic) return;
-    
-    console.log("Procesando pre-registro para:", usuarioEpic.preferred_username);
-    alert(`¡Hola, ${usuarioEpic.preferred_username}! Pre-registro completado con éxito.`);
+    if (!usuarioEpic) {
+        alert("Debes iniciar sesión con Epic Games primero.");
+        return;
+    }
+
+    // 1. Comprobar si ya existe
+    const { data: existente } = await supabase
+        .from('preregistros')
+        .select('id')
+        .eq('id', usuarioEpic.sub)
+        .single();
+
+    if (existente) {
+        alert("¡Ya estás pre-registrado en Echoes of Atramentia!");
+        return;
+    }
+
+    // 2. Insertar si no existe
+    const { error } = await supabase
+        .from('preregistros')
+        .insert([{ id: usuarioEpic.sub }]);
+
+    if (error) {
+        console.error("Error:", error);
+        alert("Error al intentar el pre-registro.");
+    } else {
+        alert("¡Pre-registro realizado con éxito!");
+    }
 }
 
 function iniciarLoginEpic() {
@@ -62,7 +86,6 @@ window.addEventListener('load', async () => {
                 localStorage.setItem('usuarioEpic', JSON.stringify(result));
                 actualizarInterfazLogueado(result.preferred_username);
                 window.history.replaceState({}, document.title, window.location.pathname);
-                ejecutarPreRegistro();
             } else {
                 throw new Error(result.error || "Error");
             }
