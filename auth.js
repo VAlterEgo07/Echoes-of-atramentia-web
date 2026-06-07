@@ -9,14 +9,21 @@ let usuarioEpic = null;
 
 // --- FUNCIONES ---
 
-function actualizarInterfazLogueado(nombre) {
-    const btnLogin = document.getElementById('btn-login-epic');
-    if (btnLogin) {
-        btnLogin.disabled = true;
-        btnLogin.innerText = `Hola, ${nombre}`;
-        btnLogin.style.opacity = "0.7";
-        btnLogin.style.cursor = "default";
-    }
+async function actualizarProgressBar() {
+    const { count, error } = await atramentiaDB
+        .from('prerregistros')
+        .select('*', { count: 'exact', head: true });
+
+    if (error) return console.error("Error al cargar progreso:", error);
+
+    const META = 5000;
+    const porcentaje = Math.min((count / META) * 100, 100);
+    
+    const bar = document.getElementById('progress-bar');
+    const text = document.getElementById('progress-text');
+    
+    if (bar) bar.style.width = `${porcentaje}%`;
+    if (text) text.innerText = `${count} / ${META} pre-registrados (${Math.round(porcentaje)}%)`;
 }
 
 async function ejecutarPreRegistro() {
@@ -25,19 +32,18 @@ async function ejecutarPreRegistro() {
         return;
     }
 
-    // 1. Comprobar si ya existe
+    // Comprobamos existencia con maybeSingle
     const { data: existente } = await atramentiaDB
         .from('prerregistros')
         .select('epic_id')
         .eq('epic_id', usuarioEpic.sub)
-        .single();
+        .maybeSingle();
 
     if (existente) {
         alert("¡Ya estás pre-registrado en Echoes of Atramentia!");
         return;
     }
 
-    // 2. Insertar si no existe
     const { error } = await atramentiaDB
         .from('prerregistros')
         .insert([{ epic_id: usuarioEpic.sub }]);
@@ -47,76 +53,45 @@ async function ejecutarPreRegistro() {
         alert("Error al intentar el pre-registro.");
     } else {
         alert("¡Pre-registro realizado con éxito!");
+        actualizarProgressBar(); // Refrescar barra tras éxito
     }
-}
-
-function iniciarLoginEpic() {
-    const url = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile`;
-    window.location.href = url;
 }
 
 // --- INICIALIZACIÓN ---
 window.addEventListener('load', async () => {
-    const btnLogin = document.getElementById('btn-login-epic');
-    const btnPreregistro = document.getElementById('btn-preregistro');
-
-    // Recuperar sesión previa si existe
-    const sesionGuardada = localStorage.getItem('usuarioEpic');
-    if (sesionGuardada) {
-        usuarioEpic = JSON.parse(sesionGuardada);
-        actualizarInterfazLogueado(usuarioEpic.preferred_username);
-    }
-
-    if (btnLogin) btnLogin.addEventListener('click', iniciarLoginEpic);
-    if (btnPreregistro) btnPreregistro.addEventListener('click', ejecutarPreRegistro);
-
-    // Procesar retorno de Epic
-    const code = new URLSearchParams(window.location.search).get('code');
-    if (code && !usuarioEpic) { // Solo si no tenemos usuario ya
-        try {
-            const response = await fetch(CONFIG.EDGE_FUNCTION_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: code })
-            });
-            const result = await response.json();
-            
-            if (response.ok) {
-                usuarioEpic = result;
-                localStorage.setItem('usuarioEpic', JSON.stringify(result));
-                actualizarInterfazLogueado(result.preferred_username);
-                window.history.replaceState({}, document.title, window.location.pathname);
-            } else {
-                throw new Error(result.error || "Error");
-            }
-        } catch (err) {
-            console.error("Error:", err.message);
+    // 1. Cargar estado de Login
+    const sesion = localStorage.getItem('usuarioEpic');
+    if (sesion) {
+        usuarioEpic = JSON.parse(sesion);
+        const btn = document.getElementById('btn-login-epic');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = `Hola, ${usuarioEpic.preferred_username}`;
         }
     }
-});
 
-const META = 5000; // Define tu objetivo aquí
+    // 2. Eventos
+    document.getElementById('btn-login-epic')?.addEventListener('click', () => {
+        window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile`;
+    });
+    
+    document.getElementById('btn-preregistro')?.addEventListener('click', ejecutarPreRegistro);
 
-async function actualizarProgressBar() {
-    // Obtenemos el conteo total de registros
-    const { count, error } = await atramentiaDB
-        .from('prerregistros')
-        .select('*', { count: 'exact', head: true });
-
-    if (error) {
-        console.error("Error al contar:", error);
-        return;
+    // 3. Procesar retorno de Epic
+    const code = new URLSearchParams(window.location.search).get('code');
+    if (code && !usuarioEpic) {
+        const res = await fetch(CONFIG.EDGE_FUNCTION_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code })
+        });
+        const result = await res.json();
+        if (res.ok) {
+            localStorage.setItem('usuarioEpic', JSON.stringify(result));
+            location.reload(); // Recargamos para limpiar URL y aplicar estado
+        }
     }
 
-    const porcentaje = Math.min((count / META) * 100, 100);
-    
-    // Actualizar visualmente
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
-    
-    if (progressBar) progressBar.style.width = `${porcentaje}%`;
-    if (progressText) progressText.innerText = `${count} / ${META} pre-registrados (${Math.round(porcentaje)}%)`;
-}
-
-// Ejecutar al cargar la página
-window.addEventListener('load', actualizarProgressBar);
+    // 4. Cargar barra
+    actualizarProgressBar();
+});
