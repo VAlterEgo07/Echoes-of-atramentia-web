@@ -26,24 +26,28 @@ async function actualizarProgressBar() {
     if (text) text.innerText = `${count} / ${META} pre-registrados (${Math.round(porcentaje)}%)`;
 }
 
+// En auth.js, cambia la función a esta versión simple:
 async function ejecutarPreRegistro() {
     if (!usuarioEpic) {
         alert("Debes iniciar sesión con Epic Games primero.");
         return;
     }
 
-    // Usamos upsert: si el epic_id existe, no hace nada (o actualiza)
-    // Esto evita el error de "llave duplicada" (23505)
+    // Usamos .insert simple. Si da error de llave duplicada, 
+    // significa que ya está registrado.
     const { error } = await atramentiaDB
         .from('prerregistros')
-        .upsert({ epic_id: usuarioEpic.sub }, { onConflict: 'epic_id' });
+        .insert([{ epic_id: usuarioEpic.sub }]);
 
     if (error) {
-        console.error("Error al registrar:", error);
-        alert("Hubo un error al procesar el registro.");
+        if (error.code === '23505') {
+            alert("¡Ya estás pre-registrado!");
+        } else {
+            console.error("Error técnico:", error);
+            alert("Error: " + error.message);
+        }
     } else {
-        // En lugar de dar error, damos un mensaje informativo
-        alert("¡Pre-registro procesado correctamente!");
+        alert("¡Pre-registro realizado con éxito!");
         actualizarProgressBar();
     }
 }
