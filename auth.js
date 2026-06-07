@@ -6,8 +6,7 @@ const loginConEpic = async () => {
         provider: 'custom:epic-games', 
         options: {
             redirectTo: 'https://www.echoesofatramentia.com',
-            // NUEVO: Le decimos a Epic Games qué información necesitamos
-            scopes: 'basic_profile presence' 
+            scopes: 'openid basic_profile presence' 
         }
     });
 
