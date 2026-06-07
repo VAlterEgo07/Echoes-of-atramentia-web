@@ -5,7 +5,9 @@ const loginConEpic = async () => {
     const { data, error } = await atramentiaDB.auth.signInWithOAuth({
         provider: 'custom:epic-games', 
         options: {
-            redirectTo: 'https://www.echoesofatramentia.com' 
+            redirectTo: 'https://www.echoesofatramentia.com',
+            // NUEVO: Le decimos a Epic Games qué información necesitamos
+            scopes: 'basic_profile presence' 
         }
     });
 
