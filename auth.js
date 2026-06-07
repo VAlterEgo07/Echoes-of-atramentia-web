@@ -94,3 +94,29 @@ window.addEventListener('load', async () => {
         }
     }
 });
+
+const META = 5000; // Define tu objetivo aquí
+
+async function actualizarProgressBar() {
+    // Obtenemos el conteo total de registros
+    const { count, error } = await atramentiaDB
+        .from('prerregistros')
+        .select('*', { count: 'exact', head: true });
+
+    if (error) {
+        console.error("Error al contar:", error);
+        return;
+    }
+
+    const porcentaje = Math.min((count / META) * 100, 100);
+    
+    // Actualizar visualmente
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    
+    if (progressBar) progressBar.style.width = `${porcentaje}%`;
+    if (progressText) progressText.innerText = `${count} / ${META} pre-registrados (${Math.round(porcentaje)}%)`;
+}
+
+// Ejecutar al cargar la página
+window.addEventListener('load', actualizarProgressBar);

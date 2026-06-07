@@ -289,3 +289,60 @@ nav a:hover { color: var(--accent-color); }
     transform: translateX(10px);
     border: 1px solid var(--accent-color);
 }
+
+/* Contenedor principal de la barra */
+.progress-container {
+    width: 100%;
+    max-width: 600px;
+    background: #1a1a2e; /* Fondo oscuro tipo espacio/atramentia */
+    border-radius: 20px;
+    padding: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    border: 1px solid #444;
+}
+
+/* La barra que se mueve */
+#progress-bar {
+    height: 25px;
+    width: 0%;
+    background: linear-gradient(90deg, #6c5ce7, #a29bfe); /* Degradado estilo mágico */
+    border-radius: 16px;
+    transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Rebote suave */
+    box-shadow: 0 0 10px rgba(162, 155, 254, 0.5);
+    position: relative;
+}
+
+/* Texto del progreso */
+#progress-text {
+    text-align: center;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+    margin-top: 10px;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+#progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image: linear-gradient(
+        -45deg, 
+        rgba(255,255,255,.2) 25%, 
+        transparent 25%, 
+        transparent 50%, 
+        rgba(255,255,255,.2) 50%, 
+        rgba(255,255,255,.2) 75%, 
+        transparent 75%, 
+        transparent
+    );
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+    border-radius: 16px;
+}
+
+@keyframes move {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
