@@ -14,7 +14,7 @@ async function actualizarProgressBar() {
         .from('prerregistros')
         .select('*', { count: 'exact', head: true });
 
-    if (error) return console.error("Error al cargar progreso:", error);
+    if (error) return console.error("Error loading progress:", error);
 
     const META = 5000;
     const porcentaje = Math.min((count / META) * 100, 100);
@@ -23,13 +23,13 @@ async function actualizarProgressBar() {
     const text = document.getElementById('progress-text');
     
     if (bar) bar.style.width = `${porcentaje}%`;
-    if (text) text.innerText = `${count} / ${META} pre-registrados (${Math.round(porcentaje)}%)`;
+    if (text) text.innerText = `${count} / ${META} pre-registered (${Math.round(porcentaje)}%)`;
 }
 
 // En auth.js, cambia la función a esta versión simple:
 async function ejecutarPreRegistro() {
     if (!usuarioEpic) {
-        alert("Debes iniciar sesión con Epic Games primero.");
+        alert("You must log in with Epic Games first.");
         return;
     }
 
@@ -41,16 +41,17 @@ async function ejecutarPreRegistro() {
 
     if (error) {
         if (error.code === '23505') {
-            alert("¡Ya estás pre-registrado!");
+            alert("You are already pre-registered!");
         } else {
-            console.error("Error técnico:", error);
+            console.error("Technical error:", error);
             alert("Error: " + error.message);
         }
     } else {
-        alert("¡Pre-registro realizado con éxito!");
+        alert("Pre-registration successful!");
         actualizarProgressBar();
     }
 }
+
 // --- INICIALIZACIÓN ---
 window.addEventListener('load', async () => {
     // 1. Cargar estado de Login
@@ -60,7 +61,7 @@ window.addEventListener('load', async () => {
         const btn = document.getElementById('btn-login-epic');
         if (btn) {
             btn.disabled = true;
-            btn.innerText = `Hola, ${usuarioEpic.preferred_username}`;
+            btn.innerText = `Hello, ${usuarioEpic.preferred_username}`;
         }
     }
 

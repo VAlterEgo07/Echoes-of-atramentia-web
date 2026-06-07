@@ -273,15 +273,13 @@ h1, h2, .nav-brand {
    COMPATIBILIDAD MÓVIL (Smartphones & Tablets)
    ========================================= */
 @media (max-width: 900px) {
-    /* Navbar móvil */
     .top-nav {
         flex-direction: column;
         gap: 15px;
         padding: 20px;
-        background: rgba(0,0,0,0.85); /* Fondo sólido para que se lea siempre */
+        background: rgba(0,0,0,0.85);
     }
     
-    /* Reagrupando los enlaces para que quepan */
     .nav-links {
         flex-wrap: wrap;
         justify-content: center;
@@ -293,32 +291,27 @@ h1, h2, .nav-brand {
         font-size: 0.8rem;
     }
 
-    /* Ajuste de Secciones */
     .fullscreen-section {
-        padding: 150px 0 80px 0; /* Espacio superior para el menú móvil */
+        padding: 150px 0 80px 0;
         height: auto;
     }
 
-    /* Centrar todo en móvil, sin importar si era derecha o izquierda */
     .right-aligned .content, 
     .left-aligned .content {
         justify-content: center;
     }
 
-    /* Ajuste de la caja de cristal */
     .glass-box {
         padding: 30px 20px;
-        text-align: center; /* Mejor lectura centrada en móvil */
-        background: rgba(0, 0, 0, 0.65); /* Más oscuro en móvil para contrastar */
+        text-align: center;
+        background: rgba(0, 0, 0, 0.65);
     }
 
-    /* Uniformar los overlays de fondo en móvil (quitar los gradientes direccionales) */
     .gradient-overlay-right, 
     .gradient-overlay-left {
         background: rgba(0,0,0,0.5); 
     }
 
-    /* Botones Hero en columna */
     .action-buttons {
         flex-direction: column;
         width: 100%;
@@ -331,52 +324,58 @@ h1, h2, .nav-brand {
     }
 }
 
-/* Contenedor del Pre-registro */
+/* =========================================
+   PRE-REGISTRO Y BARRA DE PROGRESO
+   ========================================= */
+
+/* Eliminamos el fondo blanco duro que rompía la inmersión oscura */
 #preregistro .content-box {
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
 }
 
-/* Espaciado del botón */
 #btn-preregistro {
-    margin-bottom: 40px; /* Separación clara entre botón y barra */
+    margin: 0 auto 40px auto; 
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
 }
 
-/* Contenedor de la barra */
+/* Contenedor oscuro con bordes de cristal para encajar en el tema */
 .progress-container {
     width: 100%;
     max-width: 500px;
-    background: #e0dcd5; /* Tono papel antiguo */
+    background: rgba(0, 0, 0, 0.6);
     border-radius: 20px;
     padding: 6px;
     margin: 20px auto;
-    border: 1px solid #c8bca6;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
     overflow: hidden;
 }
 
+/* Mantenemos el degradado mágico pero añadimos un resplandor (glow) */
 #progress-bar {
     height: 20px;
     width: 0%;
-    background: linear-gradient(90deg, #df7a5e, #f2cc8f); /* Tonos cálidos de tu paleta */
+    background: linear-gradient(90deg, var(--primary-color), #f2cc8f);
     border-radius: 15px;
-    transition: width 1.5s ease-out;
+    transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
+    box-shadow: 0 0 10px rgba(223, 122, 94, 0.4); 
 }
 
+/* Texto claro con sombra para que destaque sobre el fondo oscuro */
 #progress-text {
     font-family: 'Cinzel', serif;
     font-size: 1rem;
-    color: #4a3b32;
+    color: var(--text-light);
     margin-top: 15px;
     text-align: center;
-    
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
 }
 
+/* Animación de la barra (Brillo interior) */
 #progress-bar::after {
     content: "";
     position: absolute;
