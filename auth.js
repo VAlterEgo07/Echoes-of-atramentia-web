@@ -27,7 +27,7 @@ async function ejecutarPreRegistro() {
 
     // 1. Comprobar si ya existe
     const { data: existente } = await atramentiaDB
-        .from('preregistros')
+        .from('prerregistros')
         .select('id')
         .eq('id', usuarioEpic.sub)
         .single();
@@ -39,7 +39,7 @@ async function ejecutarPreRegistro() {
 
     // 2. Insertar si no existe
     const { error } = await atramentiaDB
-        .from('preregistros')
+        .from('prerregistros')
         .insert([{ id: usuarioEpic.sub }]);
 
     if (error) {
