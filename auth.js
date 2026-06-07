@@ -57,8 +57,6 @@ const procesarPreregistro = async () => {
             btnPreregistro.style.pointerEvents = 'none'; // Desactiva el clic
             btnPreregistro.style.opacity = '0.7';
         }
-
-        // --- B. LÓGICA DE BASE DE DATOS (Pre-registro) ---
         
         const userId = session.user.id;
         const { error } = await atramentiaDB
