@@ -1,12 +1,11 @@
 // auth.js
 
-// 1. Función para disparar el Login hacia Epic Games
 const loginConEpic = async () => {
     const { data, error } = await atramentiaDB.auth.signInWithOAuth({
-        provider: 'custom:epic-games', 
+        provider: 'epicgames', // <-- Así de simple
         options: {
             redirectTo: 'https://www.echoesofatramentia.com',
-            scopes: 'openid basic_profile presence' 
+            scopes: 'openid basic_profile presence' // Separados por espacio
         }
     });
 
