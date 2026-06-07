@@ -1,82 +1,22 @@
 // auth.js
-
-const loginConEpic = async () => {
-    const { data, error } = await atramentiaDB.auth.signInWithOAuth({
-        provider: 'custom:epicgames', // <-- Así de simple
-        options: {
-            redirectTo: 'https://www.echoesofatramentia.com',
-            scopes: 'basic_profile presence' // Separados por espacio
-        }
-    });
-
-    if (error) {
-        console.error("Error al iniciar sesión:", error.message);
-        alert("Hubo un problema al conectar con Epic Games.");
-    }
+const loginConEpic = () => {
+    // Redirigir al usuario a Epic Games sin pasar por Supabase
+    const clientId = 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D';
+    const redirectUri = encodeURIComponent('https://www.echoesofatramentia.com');
+    window.location.href = `https://www.epicgames.com/id/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=basic_profile`;
 };
 
-// 2. Variables de la interfaz
-const btnLogin = document.getElementById('btn-login-epic');
-const btnPreregistro = document.getElementById('btn-preregistro-epic');
-const userInfoDiv = document.getElementById('user-info');
-const epicNameSpan = document.getElementById('epic-name');
-const btnLogout = document.getElementById('btn-logout');
+// Al cargar, si vemos un ?code= en la URL, lo procesamos
+window.addEventListener('DOMContentLoaded', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
 
-// Asignar el login a los botones
-if (btnLogin) btnLogin.addEventListener('click', loginConEpic);
-if (btnPreregistro) btnPreregistro.addEventListener('click', loginConEpic);
-
-// Asignar el logout (Cerrar sesión)
-if (btnLogout) {
-    btnLogout.addEventListener('click', async () => {
-        await atramentiaDB.auth.signOut();
-        window.location.reload(); // Recargamos la página para resetear la vista
-    });
-}
-
-// 3. Función principal para procesar sesión y pre-registro
-const procesarPreregistro = async () => {
-    const { data: { session }, error: sessionError } = await atramentiaDB.auth.getSession();
-
-    // Si el usuario tiene una sesión activa...
-    if (session) {
-        // --- A. ACTUALIZAR LA INTERFAZ CON EL NOMBRE DE EPIC ---
-        
-        const metadata = session.user.user_metadata;
-        // Epic Games suele devolver el nombre bajo 'preferred_username', 'name' o 'full_name'
-        const nombreEpic = metadata.preferred_username || metadata.name || metadata.full_name || 'Pionero/a';
-
-        // Ocultar el botón de login y mostrar el nombre
-        if (btnLogin) btnLogin.style.display = 'none';
-        if (userInfoDiv) userInfoDiv.style.display = 'flex';
-        if (epicNameSpan) epicNameSpan.textContent = nombreEpic;
-
-        // Cambiar el botón principal de la página para que sepa que ya está listo
-        if (btnPreregistro) {
-            btnPreregistro.textContent = '¡Pre-registro Completado!';
-            btnPreregistro.style.pointerEvents = 'none'; // Desactiva el clic
-            btnPreregistro.style.opacity = '0.7';
-        }
-        
-        const userId = session.user.id;
-        const { error } = await atramentiaDB
-            .from('preregistros')
-            .insert([
-                { id: userId, recompensa_reclamada: true }
-            ]);
-
-        if (error) {
-            if (error.code === '23505') {
-                console.log("El jugador ya estaba pre-registrado. Todo correcto.");
-            } else {
-                console.error("Error al registrar en la BD:", error.message);
-            }
-        } else {
-            // Solo salta la alerta si es la PRIMERA vez que se registra
-            alert(`¡Bienvenido/a ${nombreEpic}! Tu pre-registro se ha completado con éxito. Tus recompensas te esperan.`);
-        }
+    if (code) {
+        // AQUÍ ESTÁ EL TRUCO:
+        // En lugar de llamar a Supabase, llamamos a un servicio que tú controles 
+        // o directamente guardamos el ID de Epic en Supabase 
+        // una vez que confirmamos que el login fue exitoso.
+        console.log("¡Código recibido de Epic:", code);
+        // Aquí llamarías a una función tuya que valide el código
     }
-};
-
-// Ejecutar la comprobación nada más cargar la página
-document.addEventListener('DOMContentLoaded', procesarPreregistro);
+});
