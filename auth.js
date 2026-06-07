@@ -1,8 +1,7 @@
 // auth.js
 
-// 2. Función para disparar el Login hacia Epic Games
+// 1. Función para disparar el Login hacia Epic Games
 const loginConEpic = async () => {
-    // Usamos nuestra nueva constante atramentiaDB
     const { data, error } = await atramentiaDB.auth.signInWithOAuth({
         provider: 'custom:epic-games', 
         options: {
@@ -16,22 +15,52 @@ const loginConEpic = async () => {
     }
 };
 
-// Asignar el login a los botones
+// 2. Variables de la interfaz
 const btnLogin = document.getElementById('btn-login-epic');
 const btnPreregistro = document.getElementById('btn-preregistro-epic');
+const userInfoDiv = document.getElementById('user-info');
+const epicNameSpan = document.getElementById('epic-name');
+const btnLogout = document.getElementById('btn-logout');
 
+// Asignar el login a los botones
 if (btnLogin) btnLogin.addEventListener('click', loginConEpic);
 if (btnPreregistro) btnPreregistro.addEventListener('click', loginConEpic);
 
-// 3. Función para procesar el pre-registro
+// Asignar el logout (Cerrar sesión)
+if (btnLogout) {
+    btnLogout.addEventListener('click', async () => {
+        await atramentiaDB.auth.signOut();
+        window.location.reload(); // Recargamos la página para resetear la vista
+    });
+}
+
+// 3. Función principal para procesar sesión y pre-registro
 const procesarPreregistro = async () => {
-    // Usamos atramentiaDB para obtener la sesión
     const { data: { session }, error: sessionError } = await atramentiaDB.auth.getSession();
 
+    // Si el usuario tiene una sesión activa...
     if (session) {
-        const userId = session.user.id;
+        // --- A. ACTUALIZAR LA INTERFAZ CON EL NOMBRE DE EPIC ---
+        
+        const metadata = session.user.user_metadata;
+        // Epic Games suele devolver el nombre bajo 'preferred_username', 'name' o 'full_name'
+        const nombreEpic = metadata.preferred_username || metadata.name || metadata.full_name || 'Pionero/a';
 
-        // Usamos atramentiaDB para insertar los datos
+        // Ocultar el botón de login y mostrar el nombre
+        if (btnLogin) btnLogin.style.display = 'none';
+        if (userInfoDiv) userInfoDiv.style.display = 'flex';
+        if (epicNameSpan) epicNameSpan.textContent = nombreEpic;
+
+        // Cambiar el botón principal de la página para que sepa que ya está listo
+        if (btnPreregistro) {
+            btnPreregistro.textContent = '¡Pre-registro Completado!';
+            btnPreregistro.style.pointerEvents = 'none'; // Desactiva el clic
+            btnPreregistro.style.opacity = '0.7';
+        }
+
+        // --- B. LÓGICA DE BASE DE DATOS (Pre-registro) ---
+        
+        const userId = session.user.id;
         const { error } = await atramentiaDB
             .from('preregistros')
             .insert([
@@ -45,7 +74,8 @@ const procesarPreregistro = async () => {
                 console.error("Error al registrar en la BD:", error.message);
             }
         } else {
-            alert("¡Pre-registro completado con éxito! Tus recompensas están aseguradas para el lanzamiento.");
+            // Solo salta la alerta si es la PRIMERA vez que se registra
+            alert(`¡Bienvenido/a ${nombreEpic}! Tu pre-registro se ha completado con éxito. Tus recompensas te esperan.`);
         }
     }
 };
