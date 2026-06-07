@@ -29,7 +29,7 @@ window.addEventListener('load', async () => {
         console.log("¡Código capturado!: ", code);
         
         try {
-            const response = await fetch('https://TU_SUPABASE_ID.supabase.co/functions/v1/epic-callback', {
+            const response = await fetch('https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ code: code })
