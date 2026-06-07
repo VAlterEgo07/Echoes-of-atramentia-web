@@ -333,6 +333,7 @@ nav a:hover { color: var(--accent-color); }
     color: #4a3b32;
     margin-top: 15px;
     text-align: center;
+    
 }
 
 #progress-bar::after {
