@@ -11,7 +11,7 @@ let usuarioEpic = null;
 
 async function actualizarProgressBar() {
     const { count, error } = await atramentiaDB
-        .from('prerregistros')
+        .from('preregistros')
         .select('*', { count: 'exact', head: true });
 
     if (error) return console.error("Error loading progress:", error);
@@ -36,7 +36,7 @@ async function ejecutarPreRegistro() {
     // Usamos .insert simple. Si da error de llave duplicada, 
     // significa que ya está registrado.
     const { error } = await atramentiaDB
-        .from('prerregistros')
+        .from('preregistros')
         .insert([{ epic_id: usuarioEpic.sub }]);
 
     if (error) {
