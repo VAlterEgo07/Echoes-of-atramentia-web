@@ -1,6 +1,6 @@
 // --- CONFIGURACIÓN ---
 const CONFIG = {
-    CLIENT_ID: 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D',
+    CLIENT_ID: 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D', 
     REDIRECT_URI: 'https://www.echoesofatramentia.com',
     EDGE_FUNCTION_URL: 'https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback'
 };
@@ -10,6 +10,7 @@ let usuarioEpic = null;
 // --- FUNCIONES ---
 
 async function actualizarProgressBar() {
+    // Asegúrate de que 'atramentiaDB' esté inicializado en otro archivo o más arriba
     const { count, error } = await atramentiaDB
         .from('preregistros')
         .select('*', { count: 'exact', head: true });
@@ -26,18 +27,16 @@ async function actualizarProgressBar() {
     if (text) text.innerText = `${count} / ${META} pre-registered (${Math.round(porcentaje)}%)`;
 }
 
-// En auth.js, cambia la función a esta versión simple:
 async function ejecutarPreRegistro() {
     if (!usuarioEpic) {
         alert("You must log in with Epic Games first.");
         return;
     }
 
-    // Usamos .insert simple. Si da error de llave duplicada, 
-    // significa que ya está registrado.
+    // Corregido: Usamos el nombre exacto de la columna de tu base de datos y la variable correcta
     const { error } = await atramentiaDB
         .from('preregistros')
-        .insert([{ epic_id: usuarioEpic.sub }]);
+        .insert([{ epic_account_id: usuarioEpic.epicAccountId }]);
 
     if (error) {
         if (error.code === '23505') {
@@ -61,7 +60,8 @@ window.addEventListener('load', async () => {
         const btn = document.getElementById('btn-login-epic');
         if (btn) {
             btn.disabled = true;
-            btn.innerText = `Hello, ${usuarioEpic.preferred_username}`;
+            // Corregido: Como no pedimos el nombre de usuario a Epic por privacidad, ponemos un texto estándar
+            btn.innerText = `Epic Account Linked`; 
         }
     }
 
@@ -75,15 +75,27 @@ window.addEventListener('load', async () => {
     // 3. Procesar retorno de Epic
     const code = new URLSearchParams(window.location.search).get('code');
     if (code && !usuarioEpic) {
-        const res = await fetch(CONFIG.EDGE_FUNCTION_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code })
-        });
-        const result = await res.json();
-        if (res.ok) {
-            localStorage.setItem('usuarioEpic', JSON.stringify(result));
-            location.reload(); // Recargamos para limpiar URL y aplicar estado
+        try {
+            const res = await fetch(CONFIG.EDGE_FUNCTION_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                // Corregido: Añadido el redirect_uri que la función exige
+                body: JSON.stringify({ code: code, redirect_uri: CONFIG.REDIRECT_URI })
+            });
+            
+            const result = await res.json();
+            
+            if (res.ok && result.success) {
+                localStorage.setItem('usuarioEpic', JSON.stringify(result));
+                // Corregido: Limpiamos la URL sin entrar en un bucle infinito
+                window.location.href = window.location.pathname; 
+            } else {
+                console.error("Error from server:", result);
+                // Si falla, borramos el código de la URL para que no siga intentando fallar
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        } catch (err) {
+            console.error("Fetch error:", err);
         }
     }
 
