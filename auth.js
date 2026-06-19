@@ -36,7 +36,7 @@ async function ejecutarPreRegistro() {
     // Corregido: Usamos el nombre exacto de la columna de tu base de datos y la variable correcta
     const { error } = await atramentiaDB
         .from('preregistros')
-        .insert([{ epic_account_id: usuarioEpic.epicAccountId }]);
+        .insert([{ epic_id: usuarioEpic.epicAccountId }]);
 
     if (error) {
         if (error.code === '23505') {
@@ -58,10 +58,14 @@ window.addEventListener('load', async () => {
     if (sesion) {
         usuarioEpic = JSON.parse(sesion);
         const btn = document.getElementById('btn-login-epic');
+        const { error } = await atramentiaDB
+            .from('preregistros')
+            .select('*', { count: 'exact', head: true })
+            .eq('epic_id', usuarioEpic.epicAccountId);
         if (btn) {
             btn.disabled = true;
             // Corregido: Como no pedimos el nombre de usuario a Epic por privacidad, ponemos un texto estándar
-            btn.innerText = `Epic Account Linked`; 
+            btn.innerText = `Welcome, ` + (usuarioEpic.displayName || "Epic User") + `!`; 
         }
     }
 
