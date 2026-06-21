@@ -110,7 +110,7 @@ const CONFIG = {
                         localStorage.setItem('usuarioEpic', JSON.stringify(result));
                         window.location.href = window.location.pathname; 
                     } else {
-                        // Forzamos a que el error se convierta en texto y lo lanzamos a la cara
+                        // Forzamos a que el error se convierta en texto y lo lanzamos a la caras
                         const errorTexto = JSON.stringify(result, null, 2);
                         alert("Atención, el servidor dice: " + errorTexto);
                         console.error("Error detallado:", errorTexto);
