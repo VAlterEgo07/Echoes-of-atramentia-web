@@ -1,108 +1,147 @@
-// --- CONFIGURACIÓN ---
 const CONFIG = {
-    CLIENT_ID: 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D', 
-    REDIRECT_URI: 'https://www.echoesofatramentia.com',
-    EDGE_FUNCTION_URL: 'https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback'
-};
+            CLIENT_ID: 'xyza7891ZITUyFwnjvafJ5L9WfxzK92D', 
+            REDIRECT_URI: 'https://www.echoesofatramentia.com',
+            EDGE_FUNCTION_URL: 'https://rzyoiufwwlfepxphfdxy.supabase.co/functions/v1/epic-callback'
+        };
 
-let usuarioEpic = null;
+        let usuarioEpic = null;
 
-// --- FUNCIONES ---
+        // --- FUNCIONES ---
+        async function actualizarProgressBar() {
+            const { count, error } = await atramentiaDB
+                .from('preregistros')
+                .select('*', { count: 'exact', head: true });
 
-async function actualizarProgressBar() {
-    // Asegúrate de que 'atramentiaDB' esté inicializado en otro archivo o más arriba
-    const { count, error } = await atramentiaDB
-        .from('preregistros')
-        .select('*', { count: 'exact', head: true });
+            if (error) return console.error("Error loading progress:", error);
 
-    if (error) return console.error("Error loading progress:", error);
-
-    const META = 5000;
-    const porcentaje = Math.min((count / META) * 100, 100);
-    
-    const bar = document.getElementById('progress-bar');
-    const text = document.getElementById('progress-text');
-    
-    if (bar) bar.style.width = `${porcentaje}%`;
-    if (text) text.innerText = `${count} / ${META} pre-registered (${Math.round(porcentaje)}%)`;
-}
-
-async function ejecutarPreRegistro() {
-    if (!usuarioEpic) {
-        alert("You must log in with Epic Games first.");
-        return;
-    }
-
-    // Corregido: Usamos el nombre exacto de la columna de tu base de datos y la variable correcta
-    const { error } = await atramentiaDB
-        .from('preregistros')
-        .insert([{ epic_id: usuarioEpic.epicAccountId }]);
-
-    if (error) {
-        if (error.code === '23505') {
-            alert("You are already pre-registered!");
-        } else {
-            console.error("Technical error:", error);
-            alert("Error: " + error.message);
+            const META = 5000;
+            const porcentaje = Math.min((count / META) * 100, 100);
+            
+            const bar = document.getElementById('progress-bar');
+            const text = document.getElementById('progress-text');
+            
+            if (bar) bar.style.width = `${porcentaje}%`;
+            if (text) text.innerText = `${count} / ${META} pre-registered (${Math.round(porcentaje)}%)`;
         }
-    } else {
-        alert("Pre-registration successful!");
-        actualizarProgressBar();
-    }
-}
 
-// --- INICIALIZACIÓN ---
-window.addEventListener('load', async () => {
-    // 1. Cargar estado de Login
-    const sesion = localStorage.getItem('usuarioEpic');
-    if (sesion) {
-        usuarioEpic = JSON.parse(sesion);
-        const btn = document.getElementById('btn-login-epic');
-        const { error } = await atramentiaDB
-            .from('preregistros')
-            .select('*', { count: 'exact', head: true })
-            .eq('epic_id', usuarioEpic.epicAccountId);
-        if (btn) {
-            btn.disabled = true;
-            // Corregido: Como no pedimos el nombre de usuario a Epic por privacidad, ponemos un texto estándar
-            btn.innerText = `Welcome, ` + (usuarioEpic.displayName || "Epic User") + `!`; 
+        async function ejecutarPreRegistro() {
+            const btnPromo = document.getElementById('btn-preregistro');
+            const btnNav = document.getElementById('btn-login-epic');
+
+            const { error } = await atramentiaDB
+                .from('preregistros')
+                .insert([{ epic_id: usuarioEpic.epicAccountId }]);
+
+            if (error) {
+                if (error.code === '23505') {
+                    alert("You are already pre-registered!");
+                    if (btnPromo) {
+                        btnPromo.innerText = "Already Pre-registered!";
+                        btnPromo.style.backgroundColor = "#4CAF50";
+                        btnPromo.disabled = true;
+                    }
+                    if (btnNav) {
+                        btnNav.innerText = "Already Pre-registered!";
+                        btnNav.style.color = "#4CAF50";
+                    }
+                } else {
+                    console.error("Technical error:", error);
+                    alert("Error: " + error.message);
+                }
+            } else {
+                alert("Pre-registration successful!");
+                if (btnPromo) {
+                    btnPromo.innerText = "Already Pre-registered!";
+                    btnPromo.style.backgroundColor = "#4CAF50";
+                    btnPromo.disabled = true;
+                }
+                if (btnNav) {
+                    btnNav.innerText = "Already Pre-registered!";
+                    btnNav.style.color = "#4CAF50";
+                }
+                actualizarProgressBar();
+            }
         }
-    }
 
-    // 2. Eventos
-    document.getElementById('btn-login-epic')?.addEventListener('click', () => {
-        window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile`;
-    });
-    
-    document.getElementById('btn-preregistro')?.addEventListener('click', ejecutarPreRegistro);
+        // --- LÓGICA PRINCIPAL AL CARGAR ---
+        window.addEventListener('load', async () => {
+            const btnNav = document.getElementById('btn-login-epic');
+            const btnPromo = document.getElementById('btn-preregistro');
 
-    // 3. Procesar retorno de Epic
-    const code = new URLSearchParams(window.location.search).get('code');
-    if (code && !usuarioEpic) {
-        try {
-            const res = await fetch(CONFIG.EDGE_FUNCTION_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                // Corregido: Añadido el redirect_uri que la función exige
-                body: JSON.stringify({ code: code, redirect_uri: CONFIG.REDIRECT_URI })
+            // 1. Cargar estado de Login y comprobar registro
+            const sesion = localStorage.getItem('usuarioEpic');
+            if (sesion) {
+                usuarioEpic = JSON.parse(sesion);
+                
+                const { count, error } = await atramentiaDB
+                    .from('preregistros')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('epic_id', usuarioEpic.epicAccountId);
+                    
+                if (btnNav) {
+                    btnNav.disabled = true;
+                    if (count > 0) {
+                        // Ya está en la base de datos
+                        btnNav.innerText = "Already Pre-registered!";
+                        btnNav.style.color = "#4CAF50"; 
+                        if (btnPromo) {
+                            btnPromo.innerText = "Already Pre-registered!";
+                            btnPromo.style.backgroundColor = "#4CAF50";
+                            btnPromo.disabled = true;
+                        }
+                    } else {
+                        // Logueado, pero falta darle al botón
+                        btnNav.innerText = `Welcome, Epic User!`; 
+                        if (btnPromo) {
+                            btnPromo.innerText = "Complete Pre-registration";
+                        }
+                    }
+                }
+            }
+
+            // 2. Eventos de los botones
+            const iniciarSesionEpic = () => {
+                window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile`;
+            };
+
+            btnNav?.addEventListener('click', () => {
+                if (!usuarioEpic) iniciarSesionEpic();
             });
             
-            const result = await res.json();
-            
-            if (res.ok && result.success) {
-                localStorage.setItem('usuarioEpic', JSON.stringify(result));
-                // Corregido: Limpiamos la URL sin entrar en un bucle infinito
-                window.location.href = window.location.pathname; 
-            } else {
-                console.error("Error from server:", result);
-                // Si falla, borramos el código de la URL para que no siga intentando fallar
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-        } catch (err) {
-            console.error("Fetch error:", err);
-        }
-    }
+            btnPromo?.addEventListener('click', () => {
+                if (!usuarioEpic) {
+                    // Si no está logueado, lo mandamos a Epic
+                    iniciarSesionEpic();
+                } else {
+                    // Si ya está logueado pero no registrado, lo registramos
+                    ejecutarPreRegistro();
+                }
+            });
 
-    // 4. Cargar barra
-    actualizarProgressBar();
-});
+            // 3. Procesar el retorno de la pasarela de Epic Games
+            const code = new URLSearchParams(window.location.search).get('code');
+            if (code && !usuarioEpic) {
+                try {
+                    const res = await fetch(CONFIG.EDGE_FUNCTION_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ code: code, redirect_uri: CONFIG.REDIRECT_URI })
+                    });
+                    
+                    const result = await res.json();
+                    
+                    if (res.ok && result.success) {
+                        localStorage.setItem('usuarioEpic', JSON.stringify(result));
+                        window.location.href = window.location.pathname; 
+                    } else {
+                        console.error("Error from server:", result);
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    }
+                } catch (err) {
+                    console.error("Fetch error:", err);
+                }
+            }
+
+            // 4. Cargar datos de la barra al entrar
+            actualizarProgressBar();
+        });
