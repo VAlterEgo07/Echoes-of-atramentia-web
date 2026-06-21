@@ -30,7 +30,7 @@ const CONFIG = {
 
             const { error } = await atramentiaDB
                 .from('preregistros')
-                .insert([{ epic_id: usuarioEpic.epicAccountId }]);
+                .insert([{ epic_id: usuarioEpic.sub }]);
 
             if (error) {
                 if (error.code === '23505') {
@@ -76,7 +76,7 @@ const CONFIG = {
                 const { count, error } = await atramentiaDB
                     .from('preregistros')
                     .select('*', { count: 'exact', head: true })
-                    .eq('epic_id', usuarioEpic.epicAccountId);
+                    .eq('epic_id', usuarioEpic.sub);
                     
                 if (btnNav) {
                     btnNav.disabled = true;
@@ -91,7 +91,7 @@ const CONFIG = {
                         }
                     } else {
                         // Logueado, pero falta darle al botón
-                        btnNav.innerText = `Welcome, Epic User!`; 
+                        btnNav.innerText = `Welcome, ` + (usuarioEpic.preferred_username || "Epic User"); 
                         if (btnPromo) {
                             btnPromo.innerText = "Complete Pre-registration";
                         }
