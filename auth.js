@@ -114,9 +114,6 @@ const CONFIG = {
                         const errorTexto = JSON.stringify(result, null, 2);
                         alert("Atención, el servidor dice: " + errorTexto);
                         console.error("Error detallado:", errorTexto);
-                        
-                        // COMENTAMOS la escoba temporalmente para que puedas ver el código en la URL
-                        // window.history.replaceState({}, document.title, window.location.pathname);
                     }
                 } catch (err) {
                     console.error("Fetch error:", err);
