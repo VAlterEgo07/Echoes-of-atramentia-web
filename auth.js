@@ -71,23 +71,7 @@ const CONFIG = {
                     .eq('epic_id', usuarioEpic.sub);
                     
                 if (btnNav) {
-                    btnNav.disabled = true;
-                    if (count > 0) {
-                        // Ya está en la base de datos
-                        btnNav.innerText = "Already Pre-registered!";
-                        btnNav.style.color = "#4CAF50"; 
-                        if (btnPromo) {
-                            btnPromo.innerText = "Already Pre-registered!";
-                            btnPromo.style.backgroundColor = "#4CAF50";
-                            btnPromo.disabled = true;
-                        }
-                    } else {
-                        // Logueado, pero falta darle al botón
-                        btnNav.innerText = `Welcome, ` + (usuarioEpic.preferred_username || "Epic User"); 
-                        if (btnPromo) {
-                            btnPromo.innerText = "Complete Pre-registration";
-                        }
-                    }
+                    btnNav.innerText = "Welcome, " + (usuarioEpic.preferred_username || "User");
                 }
             }
 
