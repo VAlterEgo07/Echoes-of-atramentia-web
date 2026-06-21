@@ -94,7 +94,7 @@ window.addEventListener('load', async () => {
     // 2. Eventos de los botones
     const iniciarSesionEpic = () => {
         // Redirigimos a Epic con el prompt=consent
-        window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=&%20presence&prompt=consent`;
+        window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile%20presence&prompt=consent`;
     };
 
     btnNav?.addEventListener('click', () => {
