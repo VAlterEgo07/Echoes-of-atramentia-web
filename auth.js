@@ -110,8 +110,13 @@ const CONFIG = {
                         localStorage.setItem('usuarioEpic', JSON.stringify(result));
                         window.location.href = window.location.pathname; 
                     } else {
-                        console.error("Error from server:", result);
-                        window.history.replaceState({}, document.title, window.location.pathname);
+                        // Forzamos a que el error se convierta en texto y lo lanzamos a la cara
+                        const errorTexto = JSON.stringify(result, null, 2);
+                        alert("Atención, el servidor dice: " + errorTexto);
+                        console.error("Error detallado:", errorTexto);
+                        
+                        // COMENTAMOS la escoba temporalmente para que puedas ver el código en la URL
+                        // window.history.replaceState({}, document.title, window.location.pathname);
                     }
                 } catch (err) {
                     console.error("Fetch error:", err);
