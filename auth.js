@@ -40,10 +40,6 @@ const CONFIG = {
                         btnPromo.style.backgroundColor = "#4CAF50";
                         btnPromo.disabled = true;
                     }
-                    if (btnNav) {
-                        btnNav.innerText = "Already Pre-registered!";
-                        btnNav.style.color = "#4CAF50";
-                    }
                 } else {
                     console.error("Technical error:", error);
                     alert("Error: " + error.message);
