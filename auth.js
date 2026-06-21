@@ -77,8 +77,7 @@ const CONFIG = {
 
             // 2. Eventos de los botones
             const iniciarSesionEpic = () => {
-                window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile`;
-            };
+                window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile&prompt=consent`;            };
 
             btnNav?.addEventListener('click', () => {
                 if (!usuarioEpic) iniciarSesionEpic();
