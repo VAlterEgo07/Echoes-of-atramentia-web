@@ -41,10 +41,6 @@ async function ejecutarPreRegistro() {
                 btnPromo.style.backgroundColor = "#4CAF50";
                 btnPromo.disabled = true;
             }
-            if (btnNav) {
-                btnNav.innerText = "Already Pre-registered!";
-                btnNav.style.color = "#4CAF50";
-            }
         } else {
             console.error("Technical error:", error);
             alert("Error: " + error.message);
@@ -55,10 +51,6 @@ async function ejecutarPreRegistro() {
             btnPromo.innerText = "Already Pre-registered!";
             btnPromo.style.backgroundColor = "#4CAF50";
             btnPromo.disabled = true;
-        }
-        if (btnNav) {
-            btnNav.innerText = "Already Pre-registered!";
-            btnNav.style.color = "#4CAF50";
         }
         actualizarProgressBar();
     }
@@ -83,8 +75,7 @@ window.addEventListener('load', async () => {
             btnNav.disabled = true;
             if (count > 0) {
                 // Ya está en la base de datos
-                btnNav.innerText = "Already Pre-registered!";
-                btnNav.style.color = "#4CAF50"; 
+                btnNav.innerText = `Welcome, ${usuarioEpic.preferred_username}!`;
                 if (btnPromo) {
                     btnPromo.innerText = "Already Pre-registered!";
                     btnPromo.style.backgroundColor = "#4CAF50";
@@ -103,7 +94,7 @@ window.addEventListener('load', async () => {
     // 2. Eventos de los botones
     const iniciarSesionEpic = () => {
         // Redirigimos a Epic con el prompt=consent
-        window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=basic_profile&prompt=consent`;
+        window.location.href = `https://www.epicgames.com/id/authorize?client_id=${CONFIG.CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT_URI)}&scope=&%20presence&prompt=consent`;
     };
 
     btnNav?.addEventListener('click', () => {
